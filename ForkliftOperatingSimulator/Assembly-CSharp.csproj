@@ -53,8 +53,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Dot_Truck_Controller.cs" />
-     <Compile Include="Assets\Scripts\ForkController.cs" />
+     <Compile Include="Assets\Scripts\ForkliftController.cs" />
+     <Compile Include="Assets\Scripts\MastControl.cs" />
  <Reference Include="Unity.ProBuilder.AddOns.Editor">
  <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/ProjectPrototype/ForkliftOperatingSimulator/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
  </Reference>
