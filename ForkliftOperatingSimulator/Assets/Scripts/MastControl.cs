@@ -15,10 +15,14 @@ public class MastControl : MonoBehaviour {
 	
     
 
-    private bool mastMoveTrue = false; //Activate or deactivate the movement of the mast
+    private bool mastMoveTrue = false; //Whether or not you want to allow the mast movement
+	
+	
 
     // Update is called once per (fixed) frame
     void FixedUpdate () {
+		
+		OVRInput.Update();
 		
 		//if fork not already at max height
         if(fork.transform.position.y >= maxYmast.y)
@@ -48,12 +52,12 @@ public class MastControl : MonoBehaviour {
 		
 		
 		//if mast already at max height
-        if (mast.transform.position.y <= minYmast.y)
+        if(mast.transform.position.y <= minYmast.y)
         {
             mast.transform.position = new Vector3(mast.transform.position.x, minYmast.y, mast.transform.position.z);
         }
 		//if mast not already at max height
-        if (mast.transform.position.y >= maxYmast.y)
+        if(mast.transform.position.y >= maxYmast.y)
         {
             mast.transform.position = new Vector3(mast.transform.position.x, maxYmast.y, mast.transform.position.z);
         }
@@ -61,8 +65,10 @@ public class MastControl : MonoBehaviour {
 		
 		
 		//'-' key lowers fork & mast 
-        if (Input.GetKey(KeyCode.Minus))
+        //if(Input.GetKey(KeyCode.Minus))
+		if(OVRInput.Get(OVRInput.Button.Three))
         {
+			//Debug.Log("Test: Mast Move Down");
             fork.Translate(-Vector3.up * speedTranslate * Time.deltaTime);
             if(mastMoveTrue)
             {
@@ -70,7 +76,8 @@ public class MastControl : MonoBehaviour {
             }
         }
 		//'=' key raises fork & mast 
-        if (Input.GetKey(KeyCode.Equals))
+        //if(Input.GetKey(KeyCode.Equals))
+		if(OVRInput.Get(OVRInput.Button.Four))
         {
            fork.Translate(Vector3.up * speedTranslate * Time.deltaTime);
             if(mastMoveTrue)
