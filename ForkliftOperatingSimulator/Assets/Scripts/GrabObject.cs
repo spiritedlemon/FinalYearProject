@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR; //needs to be UnityEngine.VR in version before 2017.2
+using UnityEngine.XR; 
 
 public class GrabObject : MonoBehaviour
 {
@@ -32,20 +32,20 @@ public class GrabObject : MonoBehaviour
         transform.localRotation = InputTracking.GetLocalRotation(NodeType);
 
 
-        //if we don't have an active object in hand, look if there is one in proximity
+        //Nothing in hand -> Check area around
         if (_currentObject == null)
         {
-            //check for colliders in proximity
+            //look for nearby colliders
             Collider[] colliders = Physics.OverlapSphere(transform.position, GrabDistance);
             if (colliders.Length > 0)
             {
-                //if there are colliders, take the first one if we press the grab button and it has the tag for grabbing
+                //When grab button is pushed grab any thing with correct tag
                 if (Input.GetAxis(InputName) >= 0.01f && colliders[0].transform.CompareTag(GrabTag))
                 {
-                    //set current object to the object we have picked up
+                    //currentobject variable is set to the object
                     _currentObject = colliders[0].transform;
 
-                    //if there is no rigidbody to the grabbed object attached, add one
+                    //if no rigidbody, add one 
                     if(_currentObject.GetComponent<Rigidbody>() == null)
                     {
                         _currentObject.gameObject.AddComponent<Rigidbody>();
@@ -59,24 +59,24 @@ public class GrabObject : MonoBehaviour
             }
         }
         else
-        //we have object in hand, update its position with the current hand position (+defined offset from it)
+        //if object is in hand, update its position with the current hand position
         {
             _currentObject.position = transform.position + ObjectGrabOffset;
 
-            //if we we release grab button, release current object
+            //drop object when released
             if (Input.GetAxis(InputName) < 0.01f)
             {
-                //set grab object to non-kinematic (enable physics)
+                //re-enable physics
                 Rigidbody _objectRGB = _currentObject.GetComponent<Rigidbody>();
                 _objectRGB.isKinematic = false;
 
-                //calculate the hand's current velocity
-                Vector3 CurrentVelocity = (transform.position - _lastFramePosition) / Time.deltaTime;
+                //calculate the hand's current velocity (Used to throw the object)
+                //Vector3 CurrentVelocity = (transform.position - _lastFramePosition) / Time.deltaTime;
 
                 //set the grabbed object's velocity to the current velocity of the hand
-                _objectRGB.velocity = CurrentVelocity * ThrowMultiplier;
+                //_objectRGB.velocity = CurrentVelocity * ThrowMultiplier;
 
-                //release the reference
+                //reset curent object variable
                 _currentObject = null;
             }
 
