@@ -19,6 +19,12 @@ using System;
 using System.Collections;
 using System.Runtime.InteropServices;
 
+#if UNITY_2017_2_OR_NEWER
+using Settings = UnityEngine.XR.XRSettings;
+#else
+using Settings = UnityEngine.VR.VRSettings;
+#endif
+
 /// <summary>
 /// Add OVROverlay script to an object with an optional mesh primitive
 /// rendered as a TimeWarp overlay instead by drawing it into the eye buffer.
@@ -89,6 +95,21 @@ public class OVROverlay : MonoBehaviour
 	[Tooltip("If true, the layer would be used to present protected content (e.g. HDCP). The flag is effective only on PC.")]
 	public bool isProtectedContent = false;
 
+	//Source and dest rects
+	public Rect srcRectLeft = new Rect();
+	public Rect srcRectRight = new Rect();
+	public Rect destRectLeft = new Rect();
+	public Rect destRectRight = new Rect();
+
+	private OVRPlugin.TextureRectMatrixf textureRectMatrix = OVRPlugin.TextureRectMatrixf.zero;
+
+	public bool overrideTextureRectMatrix = false;
+
+	public bool overridePerLayerColorScaleAndOffset = false;
+
+	public	Vector4 colorScale = Vector4.one;
+
+	public Vector4 colorOffset = Vector4.zero;
 	/// <summary>
 	/// If true, the layer will be created as an external surface. externalSurfaceObject contains the Surface object. It's effective only on Android.
 	/// </summary>
@@ -384,6 +405,36 @@ public class OVROverlay : MonoBehaviour
 		prevFrameIndex = -1;
 	}
 
+	/// <summary>
+	/// Sets the source and dest rects for both eyes. Source explains what portion of the source texture is used, and
+	/// dest is what portion of the destination texture is rendered into.
+	/// </summary>
+	public void SetSrcDestRects(Rect srcLeft, Rect srcRight, Rect destLeft, Rect destRight)
+	{
+		srcRectLeft = srcLeft;
+		srcRectRight = srcRight;
+		destRectLeft = destLeft;
+		destRectRight = destRight;
+	}
+
+	public void UpdateTextureRectMatrix()
+	{
+		textureRectMatrix.leftRect = new Rect(srcRectLeft);
+		textureRectMatrix.rightRect = new Rect(srcRectRight);
+		float leftWidthFactor = srcRectLeft.width / destRectLeft.width;
+		float leftHeightFactor = srcRectLeft.height / destRectLeft.height;
+		textureRectMatrix.leftScaleBias = new Vector4(leftWidthFactor, leftHeightFactor, srcRectLeft.x - destRectLeft.x * leftWidthFactor, srcRectLeft.y - destRectLeft.y * leftHeightFactor);
+		float rightWidthFactor = srcRectRight.width / destRectRight.width;
+		float rightHeightFactor = srcRectRight.height / destRectRight.height;
+		textureRectMatrix.rightScaleBias = new Vector4(rightWidthFactor, rightHeightFactor, srcRectRight.x - destRectRight.x * rightWidthFactor, srcRectRight.y - destRectRight.y * rightHeightFactor);
+	}
+
+	public void SetPerLayerColorScaleAndOffset(Vector4 scale, Vector4 offset)
+	{
+		colorScale = scale;
+		colorOffset = offset;
+	}
+
 	private bool LatchLayerTextures()
 	{
 		if (isExternalSurface)
@@ -602,10 +653,15 @@ public class OVROverlay : MonoBehaviour
 	private bool SubmitLayer(bool overlay, bool headLocked, bool noDepthBufferTesting, OVRPose pose, Vector3 scale, int frameIndex)
 	{
 		int rightEyeIndex = (texturesPerStage >= 2) ? 1 : 0;
+		if (overrideTextureRectMatrix)
+		{
+			UpdateTextureRectMatrix();
+		}
 		bool isOverlayVisible = OVRPlugin.EnqueueSubmitLayer(overlay, headLocked, noDepthBufferTesting,
 			isExternalSurface ? System.IntPtr.Zero : layerTextures[0].appTexturePtr,
 			isExternalSurface ? System.IntPtr.Zero : layerTextures[rightEyeIndex].appTexturePtr,
-			layerId, frameIndex, pose.flipZ().ToPosef(), scale.ToVector3f(), layerIndex, (OVRPlugin.OverlayShape)currentOverlayShape);
+			layerId, frameIndex, pose.flipZ().ToPosef(), scale.ToVector3f(), layerIndex, (OVRPlugin.OverlayShape)currentOverlayShape,
+			overrideTextureRectMatrix, textureRectMatrix, overridePerLayerColorScaleAndOffset, colorScale, colorOffset);
 
 		prevOverlayShape = currentOverlayShape;
 
@@ -634,6 +690,9 @@ public class OVROverlay : MonoBehaviour
 			textures[0] = rend.material.mainTexture;
 	}
 
+	static public string OpenVROverlayKey { get { return "unity:" + Application.companyName + "." + Application.productName; } }
+	private ulong OpenVROverlayHandle = OVR.OpenVR.OpenVR.k_ulOverlayHandleInvalid;
+
 	void OnEnable()
 	{
 		if (!OVRManager.isHmdPresent)
@@ -641,6 +700,28 @@ public class OVROverlay : MonoBehaviour
 			enabled = false;
 			return;
 		}
+
+		constructedOverlayXRDevice = OVRManager.XRDevice.Unknown;
+		if (OVRManager.loadedXRDevice == OVRManager.XRDevice.OpenVR)
+		{
+			OVR.OpenVR.CVROverlay overlay = OVR.OpenVR.OpenVR.Overlay;
+			if (overlay != null)
+			{
+				OVR.OpenVR.EVROverlayError error = overlay.CreateOverlay(OpenVROverlayKey + transform.name, gameObject.name, ref OpenVROverlayHandle);
+				if (error != OVR.OpenVR.EVROverlayError.None)
+				{
+					enabled = false;
+					return;
+				}
+			}
+			else
+			{
+				enabled = false;
+				return;
+			}
+		}
+
+		constructedOverlayXRDevice = OVRManager.loadedXRDevice;
 	}
 
 	void OnDisable()
@@ -648,8 +729,27 @@ public class OVROverlay : MonoBehaviour
 		if ((gameObject.hideFlags & HideFlags.DontSaveInBuild) != 0)
 			return;
 
-		DestroyLayerTextures();
-		DestroyLayer();
+		if (OVRManager.loadedXRDevice != constructedOverlayXRDevice)
+			return;
+
+		if (OVRManager.loadedXRDevice == OVRManager.XRDevice.Oculus)
+		{
+			DestroyLayerTextures();
+			DestroyLayer();
+		}
+		else if (OVRManager.loadedXRDevice == OVRManager.XRDevice.OpenVR)
+		{
+			if (OpenVROverlayHandle != OVR.OpenVR.OpenVR.k_ulOverlayHandleInvalid)
+			{
+				OVR.OpenVR.CVROverlay overlay = OVR.OpenVR.OpenVR.Overlay;
+				if (overlay != null)
+				{
+					overlay.DestroyOverlay(OpenVROverlayHandle);
+				}
+				OpenVROverlayHandle = OVR.OpenVR.OpenVR.k_ulOverlayHandleInvalid;
+			}
+		}
+		constructedOverlayXRDevice = OVRManager.XRDevice.Unknown;
 	}
 
 	void OnDestroy()
@@ -706,8 +806,64 @@ public class OVROverlay : MonoBehaviour
 		return true;
 	}
 
+	void OpenVROverlayUpdate(Vector3 scale, OVRPose pose)
+	{
+		OVR.OpenVR.CVROverlay overlayRef = OVR.OpenVR.OpenVR.Overlay;
+		if (overlayRef == null)
+			return;
+
+		Texture overlayTex = textures[0];
+
+		if (overlayTex != null)
+		{
+			OVR.OpenVR.EVROverlayError error = overlayRef.ShowOverlay(OpenVROverlayHandle);
+			if (error == OVR.OpenVR.EVROverlayError.InvalidHandle || error == OVR.OpenVR.EVROverlayError.UnknownOverlay)
+			{
+				if (overlayRef.FindOverlay(OpenVROverlayKey + transform.name, ref OpenVROverlayHandle) != OVR.OpenVR.EVROverlayError.None)
+					return;
+			}
+
+			OVR.OpenVR.Texture_t tex = new OVR.OpenVR.Texture_t();
+			tex.handle = overlayTex.GetNativeTexturePtr();
+			tex.eType = SystemInfo.graphicsDeviceVersion.StartsWith("OpenGL") ? OVR.OpenVR.ETextureType.OpenGL : OVR.OpenVR.ETextureType.DirectX;
+			tex.eColorSpace = OVR.OpenVR.EColorSpace.Auto;
+			overlayRef.SetOverlayTexture(OpenVROverlayHandle, ref tex);
+
+			OVR.OpenVR.VRTextureBounds_t textureBounds = new OVR.OpenVR.VRTextureBounds_t();
+			textureBounds.uMin = (0 + OpenVRUVOffsetAndScale.x) * OpenVRUVOffsetAndScale.z;
+			textureBounds.vMin = (1 + OpenVRUVOffsetAndScale.y) * OpenVRUVOffsetAndScale.w;
+			textureBounds.uMax = (1 + OpenVRUVOffsetAndScale.x) * OpenVRUVOffsetAndScale.z;
+			textureBounds.vMax = (0 + OpenVRUVOffsetAndScale.y) * OpenVRUVOffsetAndScale.w;
+
+			overlayRef.SetOverlayTextureBounds(OpenVROverlayHandle, ref textureBounds);
+
+			OVR.OpenVR.HmdVector2_t vecMouseScale = new OVR.OpenVR.HmdVector2_t();
+			vecMouseScale.v0 = OpenVRMouseScale.x;
+			vecMouseScale.v1 = OpenVRMouseScale.y;
+			overlayRef.SetOverlayMouseScale(OpenVROverlayHandle, ref vecMouseScale);
+
+			overlayRef.SetOverlayWidthInMeters(OpenVROverlayHandle, scale.x);
+
+			Matrix4x4 mat44 = Matrix4x4.TRS(pose.position, pose.orientation, Vector3.one);
+
+			OVR.OpenVR.HmdMatrix34_t pose34 = mat44.ConvertToHMDMatrix34();
+
+			overlayRef.SetOverlayTransformAbsolute(OpenVROverlayHandle, OVR.OpenVR.ETrackingUniverseOrigin.TrackingUniverseStanding, ref pose34);
+
+		}
+	}
+
+	private Vector4 OpenVRUVOffsetAndScale = new Vector4(0, 0, 1.0f, 1.0f);
+	private Vector2 OpenVRMouseScale = new Vector2(1, 1);
+	private OVRManager.XRDevice constructedOverlayXRDevice;
+
 	void LateUpdate()
 	{
+		if (OVRManager.loadedXRDevice != constructedOverlayXRDevice)
+		{
+			Debug.LogError("Warning-XR Device was switched during runtime with overlays still enabled. When doing so, all overlays constructed with the previous XR device must first be disabled.");
+			return;
+		}
 		// The overlay must be specified every eye frame, because it is positioned relative to the
 		// current head location.  If frames are dropped, it will be time warped appropriately,
 		// just like the eye buffers.
@@ -720,6 +876,14 @@ public class OVROverlay : MonoBehaviour
 		bool headLocked = false;
 		if (!ComputeSubmit(ref pose, ref scale, ref overlay, ref headLocked))
 			return;
+
+		if (OVRManager.loadedXRDevice == OVRManager.XRDevice.OpenVR)
+		{
+			if (currentOverlayShape == OverlayShape.Quad)
+				OpenVROverlayUpdate(scale, pose);
+			//No more Overlay processing is required if we're on OpenVR
+			return;
+		}
 
 		OVRPlugin.LayerDesc newDesc = GetCurrentLayerDesc();
 		bool isHdr = (newDesc.Format == OVRPlugin.EyeTextureFormat.R16G16B16A16_FP);

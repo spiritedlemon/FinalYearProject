@@ -178,6 +178,29 @@ public static class OVRExtensions
 	{
 		return new OVRPlugin.Quatf() { x = -q.x, y = -q.y, z = q.z, w = q.w };
 	}
+
+	public static OVR.OpenVR.HmdMatrix34_t ConvertToHMDMatrix34(this Matrix4x4 m)
+	{
+		OVR.OpenVR.HmdMatrix34_t pose = new OVR.OpenVR.HmdMatrix34_t();
+
+		pose.m0 = m[0, 0];
+		pose.m1 = m[0, 1];
+		pose.m2 = -m[0, 2];
+		pose.m3 = m[0, 3];
+
+		pose.m4 = m[1, 0];
+		pose.m5 = m[1, 1];
+		pose.m6 = -m[1, 2];
+		pose.m7 = m[1, 3];
+
+		pose.m8 = -m[2, 0];
+		pose.m9 = -m[2, 1];
+		pose.m10 = m[2, 2];
+		pose.m11 = -m[2, 3];
+
+		return pose;
+	}
+
 }
 
 //4 types of node state properties that can be queried with UnityEngine.XR
@@ -187,6 +210,8 @@ public enum NodeStatePropertyType
 	AngularAcceleration,
 	Velocity,
 	AngularVelocity,
+	Position,
+	Orientation
 }
 
 public static class OVRNodeStateProperties
@@ -200,53 +225,103 @@ public static class OVRNodeStateProperties
 		return Device.isPresent;
 	}
 
-	public static Vector3 GetNodeStateProperty(Node nodeType, NodeStatePropertyType propertyType, OVRPlugin.Node ovrpNodeType, OVRPlugin.Step stepType)
+	public static bool GetNodeStatePropertyVector3(Node nodeType, NodeStatePropertyType propertyType, OVRPlugin.Node ovrpNodeType, OVRPlugin.Step stepType, out Vector3 retVec)
 	{
+		retVec = Vector3.zero;
 		switch (propertyType)
 		{
 			case NodeStatePropertyType.Acceleration:
 #if UNITY_2017_1_OR_NEWER
-				return GetUnityXRNodeState(nodeType, NodeStatePropertyType.Acceleration);
-#else
-				return OVRPlugin.GetNodeAcceleration(ovrpNodeType, stepType).FromFlippedZVector3f();
+				if (GetUnityXRNodeStateVector3(nodeType, NodeStatePropertyType.Acceleration, out retVec))
+					return true;
 #endif
+				if (OVRManager.loadedXRDevice == OVRManager.XRDevice.Oculus)
+				{
+					retVec = OVRPlugin.GetNodeAcceleration(ovrpNodeType, stepType).FromFlippedZVector3f();
+					return true;
+				}
+				break;
 
 			case NodeStatePropertyType.AngularAcceleration:
 #if UNITY_2017_2_OR_NEWER
-				return GetUnityXRNodeState(nodeType, NodeStatePropertyType.AngularAcceleration);
-#else
-				return OVRPlugin.GetNodeAngularAcceleration(ovrpNodeType, stepType).FromFlippedZVector3f() * Mathf.Rad2Deg;
+				if (GetUnityXRNodeStateVector3(nodeType, NodeStatePropertyType.AngularAcceleration, out retVec))
+					return true;
 #endif
+				if (OVRManager.loadedXRDevice == OVRManager.XRDevice.Oculus)
+				{
+					retVec = OVRPlugin.GetNodeAngularAcceleration(ovrpNodeType, stepType).FromFlippedZVector3f();
+					return true;
+				}
+				break;
 
 			case NodeStatePropertyType.Velocity:
 #if UNITY_2017_1_OR_NEWER
-				return GetUnityXRNodeState(nodeType, NodeStatePropertyType.Velocity);
-#else
-				return OVRPlugin.GetNodeVelocity(ovrpNodeType, stepType).FromFlippedZVector3f();
+				if (GetUnityXRNodeStateVector3(nodeType, NodeStatePropertyType.Velocity, out retVec))
+					return true;
 #endif
+				if (OVRManager.loadedXRDevice == OVRManager.XRDevice.Oculus)
+				{
+					retVec = OVRPlugin.GetNodeVelocity(ovrpNodeType, stepType).FromFlippedZVector3f();
+					return true;
+				}
+				break;
 
 			case NodeStatePropertyType.AngularVelocity:
 #if UNITY_2017_2_OR_NEWER
-				return GetUnityXRNodeState(nodeType, NodeStatePropertyType.AngularVelocity);
-#else
-			return OVRPlugin.GetNodeAngularVelocity(ovrpNodeType, stepType).FromFlippedZVector3f() * Mathf.Rad2Deg;
+				if (GetUnityXRNodeStateVector3(nodeType, NodeStatePropertyType.AngularVelocity, out retVec))
+					return true;
 #endif
+				if (OVRManager.loadedXRDevice == OVRManager.XRDevice.Oculus)
+				{
+					retVec = OVRPlugin.GetNodeAngularVelocity(ovrpNodeType, stepType).FromFlippedZVector3f();
+					return true;
+				}
+				break;
 
+			case NodeStatePropertyType.Position:
+#if UNITY_2017_1_OR_NEWER
+				if (GetUnityXRNodeStateVector3(nodeType, NodeStatePropertyType.Position, out retVec))
+					return true;
+#endif
+				if (OVRManager.loadedXRDevice == OVRManager.XRDevice.Oculus){
+					retVec = OVRPlugin.GetNodePose(ovrpNodeType, stepType).ToOVRPose().position;
+					return true;
+				}
+				break;
 		}
-		return Vector3.zero;
+
+		return false;
 	}
 
+	public static bool GetNodeStatePropertyQuaternion(Node nodeType, NodeStatePropertyType propertyType, OVRPlugin.Node ovrpNodeType, OVRPlugin.Step stepType, out Quaternion retQuat)
+	{
+		retQuat = Quaternion.identity;
+		switch (propertyType)
+		{
+			case NodeStatePropertyType.Orientation:
+#if UNITY_2017_1_OR_NEWER
+				if (GetUnityXRNodeStateQuaternion(nodeType, NodeStatePropertyType.Orientation, out retQuat))
+					return true;
+#endif
+				if (OVRManager.loadedXRDevice == OVRManager.XRDevice.Oculus){
+					retQuat = OVRPlugin.GetNodePose(ovrpNodeType, stepType).ToOVRPose().orientation;
+					return true;
+				}
+				break;
+		}
+		return false;
+	}
 
 #if UNITY_2017_1_OR_NEWER
-	private static Vector3 GetUnityXRNodeState(Node nodeType, NodeStatePropertyType propertyType)
+	private static bool ValidateProperty(Node nodeType, ref NodeState requestedNodeState)
 	{
 		InputTracking.GetNodeStates(nodeStateList);
 
 		if (nodeStateList.Count == 0)
-			return Vector3.zero;
+			return false;
 
 		bool nodeStateFound = false;
-		NodeState requestedNodeState = nodeStateList[0];
+		requestedNodeState = nodeStateList[0];
 
 		for (int i = 0; i < nodeStateList.Count; i++)
 		{
@@ -258,15 +333,25 @@ public static class OVRNodeStateProperties
 			}
 		}
 
-		if (!nodeStateFound)
-			return Vector3.zero;
+		return nodeStateFound;
+	}
+#endif
 
-		Vector3 retVec;
+#if UNITY_2017_1_OR_NEWER
+	private static bool GetUnityXRNodeStateVector3(Node nodeType, NodeStatePropertyType propertyType, out Vector3 retVec)
+	{
+		retVec = Vector3.zero;
+
+		NodeState requestedNodeState = default(NodeState);
+
+		if (!ValidateProperty(nodeType, ref requestedNodeState))
+			return false;
+		
 		if (propertyType == NodeStatePropertyType.Acceleration)
 		{
 			if (requestedNodeState.TryGetAcceleration(out retVec))
 			{
-				return retVec;
+				return true;
 			}
 		}
 		else if (propertyType == NodeStatePropertyType.AngularAcceleration)
@@ -274,8 +359,7 @@ public static class OVRNodeStateProperties
 #if UNITY_2017_2_OR_NEWER
 			if (requestedNodeState.TryGetAngularAcceleration(out retVec))
 			{
-				retVec = retVec * Mathf.Rad2Deg;
-				return retVec;
+				return true;
 			}
 #endif
 		}
@@ -283,7 +367,7 @@ public static class OVRNodeStateProperties
 		{
 			if (requestedNodeState.TryGetVelocity(out retVec))
 			{
-				return retVec;
+				return true;
 			}
 		}
 		else if (propertyType == NodeStatePropertyType.AngularVelocity)
@@ -291,13 +375,41 @@ public static class OVRNodeStateProperties
 #if UNITY_2017_2_OR_NEWER
 			if (requestedNodeState.TryGetAngularVelocity(out retVec))
 			{
-				retVec = retVec * Mathf.Rad2Deg;
-				return retVec;
+				return true;
 			}
 #endif
 		}
+		else if (propertyType == NodeStatePropertyType.Position)
+		{
+			if (requestedNodeState.TryGetPosition(out retVec))
+			{
+				return true;
+			}
+		}
 
-		return Vector3.zero;
+		return false;
+	}
+#endif
+
+#if UNITY_2017_1_OR_NEWER
+	private static bool GetUnityXRNodeStateQuaternion(Node nodeType, NodeStatePropertyType propertyType, out Quaternion retQuat)
+	{
+		retQuat = Quaternion.identity;
+
+		NodeState requestedNodeState = default(NodeState);
+
+		if (!ValidateProperty(nodeType, ref requestedNodeState))
+			return false;
+
+		if (propertyType == NodeStatePropertyType.Orientation)
+		{
+			if (requestedNodeState.TryGetRotation(out retQuat))
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 #endif
 

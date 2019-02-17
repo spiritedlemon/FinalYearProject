@@ -53,14 +53,16 @@ namespace Assets.OVR.Scripts
 		public FixMethodDelegate fixMethod;
 		public UnityEngine.Object targetObject;
 		public string[] buttonNames;
+		public bool editModeRequired;
 		public bool complete;
 
-		public FixRecord(string cat, string msg, FixMethodDelegate fix, UnityEngine.Object target, string[] buttons)
+		public FixRecord(string cat, string msg, FixMethodDelegate fix, UnityEngine.Object target, bool editRequired, string[] buttons)
 			: base(cat, msg)
 		{
 			buttonNames = buttons;
 			fixMethod = fix;
 			targetObject = target;
+			editModeRequired = editRequired;
 			complete = false;
 		}
 	}

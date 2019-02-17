@@ -401,6 +401,12 @@ public class OVRManager : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// The TCP listening port of Oculus Profiler Service, which will be activated in Debug/Developerment builds
+	/// When the app is running on editor or device, open "Tools/Oculus/Oculus Profiler Panel" to view the realtime system metrics
+	/// </summary>
+	public int profilerTcpPort = OVRSystemPerfMetrics.TcpListeningPort;
+
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
 	/// <summary>
 	/// If true, the MixedRealityCapture properties will be displayed
@@ -1173,6 +1179,21 @@ public class OVRManager : MonoBehaviour
 		if (resetTrackerOnLoad)
 			display.RecenterPose();
 
+		if (Debug.isDebugBuild)
+		{
+			// Activate system metrics collection in Debug/Developerment build
+			if (GetComponent<OVRSystemPerfMetrics.OVRSystemPerfMetricsTcpServer>() == null)
+			{
+				gameObject.AddComponent<OVRSystemPerfMetrics.OVRSystemPerfMetricsTcpServer>();
+			}
+			OVRSystemPerfMetrics.OVRSystemPerfMetricsTcpServer perfTcpServer = GetComponent<OVRSystemPerfMetrics.OVRSystemPerfMetricsTcpServer>();
+			perfTcpServer.listeningPort = profilerTcpPort;
+			if (!perfTcpServer.enabled)
+			{
+				perfTcpServer.enabled = true;
+			}
+		}
+
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
 		// Force OcculusionMesh on all the time, you can change the value to false if you really need it be off for some reasons,
 		// be aware there are performance drops if you don't use occlusionMesh.
@@ -1528,6 +1549,11 @@ public class OVRManager : MonoBehaviour
 		OVRInput.Update();
 
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+		if (enableMixedReality && !prevEnableMixedReality)
+		{
+			OVRPlugin.SendEvent("mixed_reality_capture", "activated");
+		}
+
 		if (enableMixedReality || prevEnableMixedReality)
 		{
 			Camera mainCamera = FindMainCamera();
@@ -1599,6 +1625,12 @@ public class OVRManager : MonoBehaviour
 
 	private void OnDisable()
 	{
+		OVRSystemPerfMetrics.OVRSystemPerfMetricsTcpServer perfTcpServer = GetComponent<OVRSystemPerfMetrics.OVRSystemPerfMetricsTcpServer>();
+		if (perfTcpServer != null)
+		{
+			perfTcpServer.enabled = false;
+		}
+
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
 		OVRMixedReality.Cleanup();
 #endif

@@ -120,9 +120,8 @@ class OVRPluginUpdater
  
 		if (enableAndroidUniversalSupport)
 		{
-#if UNITY_2018_1_OR_NEWER
-			// Temporarily disable the AndroidUniversal plugin because of a plugin copying error in Unity
-			unityVersionSupportsAndroidUniversal = false;
+#if UNITY_2018_3_OR_NEWER
+			unityVersionSupportsAndroidUniversal = true;
 #endif
 		}
 
@@ -349,11 +348,13 @@ class OVRPluginUpdater
 				{
 					case PluginPlatform.Android:
 						pi.SetCompatibleWithPlatform(BuildTarget.Android, !unityVersionSupportsAndroidUniversal);
-						pi.SetPlatformData(BuildTarget.Android, "CPU", "ARMv7");
+						if (!unityVersionSupportsAndroidUniversal)
+						{
+							pi.SetPlatformData(BuildTarget.Android, "CPU", "ARMv7");
+						}
 						break;
 					case PluginPlatform.AndroidUniversal:
 						pi.SetCompatibleWithPlatform(BuildTarget.Android, unityVersionSupportsAndroidUniversal);
-						pi.SetPlatformData(BuildTarget.Android, "CPU", "ARM64");
 						break;
 					case PluginPlatform.OSXUniversal:
 #if UNITY_2017_3_OR_NEWER
@@ -409,7 +410,7 @@ class OVRPluginUpdater
 		}
 	}
 
-	[MenuItem("Tools/Oculus/Disable OVR Utilities Plugin")]
+	[MenuItem("Oculus/Tools/Disable OVR Utilities Plugin")]
 	private static void AttemptPluginDisable()
 	{
 		PluginPackage bundledPluginPkg = GetBundledPluginPackage();
@@ -469,7 +470,7 @@ class OVRPluginUpdater
 		}
 	}
 
-	[MenuItem("Tools/Oculus/Update OVR Utilities Plugin")]
+	[MenuItem("Oculus/Tools/Update OVR Utilities Plugin")]
 	private static void RunPluginUpdate()
 	{
 		autoUpdateEnabled = true;

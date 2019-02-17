@@ -127,6 +127,11 @@ public class OVRPlayerController : MonoBehaviour
 	/// </summary>
 	public bool EnableRotation = true;
 
+	/// <summary>
+	/// Rotation defaults to secondary thumbstick. You can allow either here. Note that this won't behave well if EnableLinearMovement is true.
+	/// </summary>
+	public bool RotationEitherThumbstick = false;
+
 	protected CharacterController Controller = null;
 	protected OVRCameraRig CameraRig = null;
 
@@ -137,8 +142,8 @@ public class OVRPlayerController : MonoBehaviour
 	public float InitialYRotation { get; private set; }
 	private float MoveScaleMultiplier = 1.0f;
 	private float RotationScaleMultiplier = 1.0f;
-	private bool  SkipMouseRotation = true; // It is rare to want to use mouse movement in VR, so ignore the mouse by default.
-	private bool  HaltUpdateMovement = false;
+	private bool SkipMouseRotation = true; // It is rare to want to use mouse movement in VR, so ignore the mouse by default.
+	private bool HaltUpdateMovement = false;
 	private bool prevHatLeft = false;
 	private bool prevHatRight = false;
 	private float SimulationRate = 60f;
@@ -157,14 +162,14 @@ public class OVRPlayerController : MonoBehaviour
 	{
 		Controller = gameObject.GetComponent<CharacterController>();
 
-		if(Controller == null)
+		if (Controller == null)
 			Debug.LogWarning("OVRPlayerController: No CharacterController attached.");
 
 		// We use OVRCameraRig to set rotations to cameras,
 		// and to be influenced by rotation
 		OVRCameraRig[] CameraRigs = gameObject.GetComponentsInChildren<OVRCameraRig>();
 
-		if(CameraRigs.Length == 0)
+		if (CameraRigs.Length == 0)
 			Debug.LogWarning("OVRPlayerController: No OVRCameraRig attached.");
 		else if (CameraRigs.Length > 1)
 			Debug.LogWarning("OVRPlayerController: More then 1 OVRCameraRig attached.");
@@ -226,7 +231,7 @@ public class OVRPlayerController : MonoBehaviour
 			}
 			else if (OVRManager.instance.trackingOriginType == OVRManager.TrackingOrigin.FloorLevel)
 			{
-				p.y = - (0.5f * Controller.height) + Controller.center.y;
+				p.y = -(0.5f * Controller.height) + Controller.center.y;
 			}
 			CameraRig.transform.localPosition = p;
 		}
@@ -416,8 +421,8 @@ public class OVRPlayerController : MonoBehaviour
 
 			if (SnapRotation)
 			{
-
-				if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft))
+				if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft) ||
+					(RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickLeft)))
 				{
 					if (ReadyToSnapTurn)
 					{
@@ -425,7 +430,8 @@ public class OVRPlayerController : MonoBehaviour
 						ReadyToSnapTurn = false;
 					}
 				}
-				else if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickRight))
+				else if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickRight) ||
+					(RotationEitherThumbstick && OVRInput.Get(OVRInput.Button.PrimaryThumbstickRight)))
 				{
 					if (ReadyToSnapTurn)
 					{
@@ -441,6 +447,14 @@ public class OVRPlayerController : MonoBehaviour
 			else
 			{
 				Vector2 secondaryAxis = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
+				if (RotationEitherThumbstick)
+				{
+					Vector2 altSecondaryAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
+					if (secondaryAxis.sqrMagnitude < altSecondaryAxis.sqrMagnitude)
+					{
+						secondaryAxis = altSecondaryAxis;
+					}
+				}
 				euler.y += secondaryAxis.x * rotateInfluence;
 			}
 

@@ -477,14 +477,30 @@ public static class OVRInput
 	/// </summary>
 	public static Vector3 GetLocalControllerVelocity(OVRInput.Controller controllerType)
 	{
+		Vector3 velocity = Vector3.zero;
+
 		switch (controllerType)
 		{
 			case Controller.LTouch:
 			case Controller.LTrackedRemote:
-				return OVRNodeStateProperties.GetNodeStateProperty(Node.LeftHand, NodeStatePropertyType.Velocity, OVRPlugin.Node.HandLeft, stepType);
+				if (OVRNodeStateProperties.GetNodeStatePropertyVector3(Node.LeftHand, NodeStatePropertyType.Velocity, OVRPlugin.Node.HandLeft, stepType, out velocity))
+				{
+					return velocity;
+				}
+				else
+				{
+					return Vector3.zero;
+				}
 			case Controller.RTouch:
 			case Controller.RTrackedRemote:
-				return OVRNodeStateProperties.GetNodeStateProperty(Node.RightHand, NodeStatePropertyType.Velocity, OVRPlugin.Node.HandRight, stepType);
+				if (OVRNodeStateProperties.GetNodeStatePropertyVector3(Node.RightHand, NodeStatePropertyType.Velocity, OVRPlugin.Node.HandRight, stepType, out velocity))
+				{
+					return velocity;
+				}
+				else
+				{
+					return Vector3.zero;
+				}
 			default:
 				return Vector3.zero;
 		}
@@ -496,14 +512,30 @@ public static class OVRInput
 	/// </summary>
 	public static Vector3 GetLocalControllerAcceleration(OVRInput.Controller controllerType)
 	{
+		Vector3 accel = Vector3.zero;
+
 		switch (controllerType)
 		{
 			case Controller.LTouch:
 			case Controller.LTrackedRemote:
-				return OVRNodeStateProperties.GetNodeStateProperty(Node.LeftHand, NodeStatePropertyType.Acceleration, OVRPlugin.Node.HandLeft, stepType);
+				if (OVRNodeStateProperties.GetNodeStatePropertyVector3(Node.LeftHand, NodeStatePropertyType.Acceleration, OVRPlugin.Node.HandLeft, stepType, out accel))
+				{
+					return accel;
+				}
+				else
+				{
+					return Vector3.zero;
+				}
 			case Controller.RTouch:
 			case Controller.RTrackedRemote:
-				return OVRNodeStateProperties.GetNodeStateProperty(Node.RightHand, NodeStatePropertyType.Acceleration, OVRPlugin.Node.HandRight, stepType);
+				if (OVRNodeStateProperties.GetNodeStatePropertyVector3(Node.RightHand, NodeStatePropertyType.Acceleration, OVRPlugin.Node.HandRight, stepType, out accel))
+				{
+					return accel;
+				}
+				else
+				{
+					return Vector3.zero;
+				}
 			default:
 				return Vector3.zero;
 		}
@@ -544,16 +576,32 @@ public static class OVRInput
 	/// </summary>
 	public static Vector3 GetLocalControllerAngularVelocity(OVRInput.Controller controllerType)
 	{
+		Vector3 velocity = Vector3.zero;
+
 		switch (controllerType)
 		{
-		case Controller.LTouch:
-		case Controller.LTrackedRemote:
-			return OVRNodeStateProperties.GetNodeStateProperty(Node.LeftHand, NodeStatePropertyType.AngularVelocity, OVRPlugin.Node.HandLeft, stepType);
-		case Controller.RTouch:
-		case Controller.RTrackedRemote:
-			return OVRNodeStateProperties.GetNodeStateProperty(Node.RightHand, NodeStatePropertyType.AngularVelocity, OVRPlugin.Node.HandRight, stepType);
-		default:
-			return Vector3.zero;
+			case Controller.LTouch:
+			case Controller.LTrackedRemote:
+				if (OVRNodeStateProperties.GetNodeStatePropertyVector3(Node.LeftHand, NodeStatePropertyType.AngularVelocity, OVRPlugin.Node.HandLeft, stepType, out velocity))
+				{
+					return velocity;
+				}
+				else
+				{
+					return Vector3.zero;
+				}
+			case Controller.RTouch:
+			case Controller.RTrackedRemote:
+				if (OVRNodeStateProperties.GetNodeStatePropertyVector3(Node.RightHand, NodeStatePropertyType.AngularVelocity, OVRPlugin.Node.HandRight, stepType, out velocity))
+				{
+					return velocity;
+				}
+				else
+				{
+					return Vector3.zero;
+				}
+			default:
+				return Vector3.zero;
 		}
 	}
 
@@ -563,16 +611,32 @@ public static class OVRInput
 	/// </summary>
 	public static Vector3 GetLocalControllerAngularAcceleration(OVRInput.Controller controllerType)
 	{
+		Vector3 accel = Vector3.zero;
+
 		switch (controllerType)
 		{
-		case Controller.LTouch:
-		case Controller.LTrackedRemote:
-			return OVRNodeStateProperties.GetNodeStateProperty(Node.LeftHand, NodeStatePropertyType.AngularAcceleration, OVRPlugin.Node.HandLeft, stepType);
-		case Controller.RTouch:
-		case Controller.RTrackedRemote:
-			return OVRNodeStateProperties.GetNodeStateProperty(Node.RightHand, NodeStatePropertyType.AngularAcceleration, OVRPlugin.Node.HandRight, stepType);
-		default:
-			return Vector3.zero;
+			case Controller.LTouch:
+			case Controller.LTrackedRemote:
+				if (OVRNodeStateProperties.GetNodeStatePropertyVector3(Node.LeftHand, NodeStatePropertyType.AngularAcceleration, OVRPlugin.Node.HandLeft, stepType, out accel))
+				{
+					return accel;
+				}
+				else
+				{
+					return Vector3.zero;
+				}
+			case Controller.RTouch:
+			case Controller.RTrackedRemote:
+				if (OVRNodeStateProperties.GetNodeStatePropertyVector3(Node.RightHand, NodeStatePropertyType.AngularAcceleration, OVRPlugin.Node.HandRight, stepType, out accel))
+				{
+					return accel;
+				}
+				else
+				{
+					return Vector3.zero;
+				}
+			default:
+				return Vector3.zero;
 		}
 	}
 

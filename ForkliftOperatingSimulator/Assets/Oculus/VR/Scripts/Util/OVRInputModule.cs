@@ -27,6 +27,8 @@ namespace UnityEngine.EventSystems
         [Tooltip("Object which points with Z axis. E.g. CentreEyeAnchor from OVRCameraRig")]
         public Transform rayTransform;
 
+        public OVRCursor m_Cursor;
+
         [Tooltip("Gamepad button to act as gaze click")]
         public OVRInput.Button joyPadClickButton = OVRInput.Button.One;
 
@@ -36,9 +38,6 @@ namespace UnityEngine.EventSystems
         [Header("Physics")]
         [Tooltip("Perform an sphere cast to determine correct depth for gaze pointer")]
         public bool performSphereCastForGazepointer;
-
-        [Tooltip("Match the gaze pointer normal to geometry normal for physics colliders")]
-        public bool matchNormalOnPhysicsColliders;
 
         [Header("Gamepad Stick Scroll")]
         [Tooltip("Enable scrolling with the right stick on a gamepad")]
@@ -67,7 +66,8 @@ namespace UnityEngine.EventSystems
         [Tooltip("Minimum pointer movement in degrees to start dragging")]
         public float angleDragThreshold = 1;
 
-
+        [SerializeField]
+        private float m_SpherecastRadius = 1.0f;       
 
 
 
@@ -612,6 +612,8 @@ namespace UnityEngine.EventSystems
             leftData.pointerCurrentRaycast = raycast;
             m_RaycastResultCache.Clear();
 
+            m_Cursor.SetCursorRay(rayTransform);
+
             OVRRaycaster ovrRaycaster = raycast.module as OVRRaycaster;
             // We're only interested in intersections from OVRRaycasters
             if (ovrRaycaster)
@@ -621,7 +623,6 @@ namespace UnityEngine.EventSystems
                 // space position for the camera attached to this raycaster for compatability
                 leftData.position = ovrRaycaster.GetScreenPosition(raycast);
 
-
                 // Find the world position and normal the Graphic the ray intersected
                 RectTransform graphicRect = raycast.gameObject.GetComponent<RectTransform>();
                 if (graphicRect != null)
@@ -629,9 +630,7 @@ namespace UnityEngine.EventSystems
                     // Set are gaze indicator with this world position and normal
                     Vector3 worldPos = raycast.worldPosition;
                     Vector3 normal = GetRectTransformNormal(graphicRect);
-                    OVRGazePointer.instance.SetPosition(worldPos, normal);
-                    // Make sure it's being shown
-                    OVRGazePointer.instance.RequestShow();
+                    m_Cursor.SetCursorStartDest(rayTransform.position, worldPos, normal);
                 }
             }
 
@@ -646,7 +645,7 @@ namespace UnityEngine.EventSystems
                     // Here we cast a sphere into the scene rather than a ray. This gives a more accurate depth
                     // for positioning a circular gaze pointer
                     List<RaycastResult> results = new List<RaycastResult>();
-                    physicsRaycaster.Spherecast(leftData, results, OVRGazePointer.instance.GetCurrentRadius());
+                    physicsRaycaster.Spherecast(leftData, results, m_SpherecastRadius);
                     if (results.Count > 0 && results[0].distance < raycast.distance)
                     {
                         position = results[0].worldPosition;
@@ -655,20 +654,8 @@ namespace UnityEngine.EventSystems
 
                 leftData.position = physicsRaycaster.GetScreenPos(raycast.worldPosition);
 
-                // Show the cursor while pointing at an interactable object
-                OVRGazePointer.instance.RequestShow();
-                if (matchNormalOnPhysicsColliders)
-                {
-                    OVRGazePointer.instance.SetPosition(position, raycast.worldNormal);
-                }
-                else
-                {
-                    OVRGazePointer.instance.SetPosition(position);
-                }
+                m_Cursor.SetCursorStartDest(rayTransform.position, position, raycast.worldNormal);
             }
-
-
-
 
             // Stick default data values in right and middle slots for compatability
 

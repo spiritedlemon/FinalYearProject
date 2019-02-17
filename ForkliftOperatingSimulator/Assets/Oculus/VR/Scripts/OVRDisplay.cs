@@ -167,8 +167,10 @@ public class OVRDisplay
 			if (!OVRManager.isHmdPresent)
 				return Vector3.zero;
 
-			return OVRNodeStateProperties.GetNodeStateProperty(Node.Head, NodeStatePropertyType.Acceleration, OVRPlugin.Node.Head, OVRPlugin.Step.Render);
-
+			Vector3 retVec = Vector3.zero;
+			if (OVRNodeStateProperties.GetNodeStatePropertyVector3(Node.Head, NodeStatePropertyType.Acceleration, OVRPlugin.Node.Head, OVRPlugin.Step.Render, out retVec))
+				return retVec;
+			return Vector3.zero;
 		}
 	}
 
@@ -182,7 +184,10 @@ public class OVRDisplay
             if (!OVRManager.isHmdPresent)
 				return Vector3.zero;
 
-			return OVRNodeStateProperties.GetNodeStateProperty(Node.Head, NodeStatePropertyType.AngularAcceleration, OVRPlugin.Node.Head, OVRPlugin.Step.Render);
+			Vector3 retVec = Vector3.zero;
+			if (OVRNodeStateProperties.GetNodeStatePropertyVector3(Node.Head, NodeStatePropertyType.AngularAcceleration, OVRPlugin.Node.Head, OVRPlugin.Step.Render, out retVec))
+				return retVec;
+			return Vector3.zero;
 
         }
     }
@@ -197,9 +202,11 @@ public class OVRDisplay
             if (!OVRManager.isHmdPresent)
                 return Vector3.zero;
 
-			return OVRNodeStateProperties.GetNodeStateProperty(Node.Head, NodeStatePropertyType.Velocity, OVRPlugin.Node.Head, OVRPlugin.Step.Render);
-
-        }
+			Vector3 retVec = Vector3.zero;
+			if (OVRNodeStateProperties.GetNodeStatePropertyVector3(Node.Head, NodeStatePropertyType.Velocity, OVRPlugin.Node.Head, OVRPlugin.Step.Render, out retVec))
+				return retVec;
+			return Vector3.zero;
+		}
     }
 
 	/// <summary>
@@ -211,8 +218,10 @@ public class OVRDisplay
 			if (!OVRManager.isHmdPresent)
 				return Vector3.zero;
 
-			return OVRNodeStateProperties.GetNodeStateProperty(Node.Head, NodeStatePropertyType.AngularVelocity, OVRPlugin.Node.Head, OVRPlugin.Step.Render);
-
+			Vector3 retVec = Vector3.zero;
+			if (OVRNodeStateProperties.GetNodeStatePropertyVector3(Node.Head, NodeStatePropertyType.AngularVelocity, OVRPlugin.Node.Head, OVRPlugin.Step.Render, out retVec))
+				return retVec;
+			return Vector3.zero;
 		}
 	}
 
