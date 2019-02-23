@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR; 
 
+
+//Script obtained from online tutorial and is no longer used - Likely removed in later version 
+
 public class GrabObject : MonoBehaviour
 {
 
