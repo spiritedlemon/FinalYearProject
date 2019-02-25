@@ -822,7 +822,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh8204
+  m_Name: pb_Mesh16020
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1105,6 +1105,7 @@ GameObject:
   - component: {fileID: 282328457}
   - component: {fileID: 282328461}
   - component: {fileID: 282328460}
+  - component: {fileID: 282328462}
   m_Layer: 0
   m_Name: RotatePoint
   m_TagString: Untagged
@@ -1193,11 +1194,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 282328455}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9385f1ae30026440b9bad6b4fc1435b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  held: 0
 --- !u!135 &282328461
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1211,6 +1213,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.2
   m_Center: {x: 0.000000059604645, y: 4.1633363e-17, z: -0.00000008940698}
+--- !u!114 &282328462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282328455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7a6d752dbcbbda469655c5c7d765229, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  held: 0
+  WheelBase: {fileID: 282328455}
+  Hand: {fileID: 1505525824}
+  RelativePos: {x: 0, y: 0, z: 0}
 --- !u!1 &428186271
 GameObject:
   m_ObjectHideFlags: 0
@@ -6947,7 +6965,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh8132
+  m_Name: pb_Mesh15944
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -9260,6 +9278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9385f1ae30026440b9bad6b4fc1435b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  held: 0
 --- !u!135 &1300645210
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -11433,7 +11452,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh8246
+  m_Name: pb_Mesh16062
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2

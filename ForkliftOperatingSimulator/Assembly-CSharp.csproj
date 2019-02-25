@@ -337,6 +337,7 @@
      <Compile Include="Assets\Scripts\ForkliftController.cs" />
      <Compile Include="Assets\Scripts\GrabObject.cs" />
      <Compile Include="Assets\Scripts\MastControl.cs" />
+     <Compile Include="Assets\Scripts\SteeringTest.cs" />
      <Compile Include="Assets\Scripts\SteeringWheel.cs" />
      <None Include="Assets\Oculus\Avatar\Content\Materials\AvatarMaterialStateShader.cginc" />
      <None Include="Assets\Oculus\Avatar\Samples\CrossPlatform\Readme.txt" />
