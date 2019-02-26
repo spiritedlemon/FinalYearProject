@@ -29,8 +29,26 @@ public class SteeringTest : MonoBehaviour
     {
         RelativePos = StWheel.transform.InverseTransformPoint(Hand.transform.position); // Relative position between the wheel and hand
         
-        return Mathf.Atan2(RelativePos.y, RelativePos.x) * Mathf.Rad2Deg; // ATan2 gives radians and multiplying by Rad2Deg returns the value in degrees
+        //return Mathf.Atan2(RelativePos.y, RelativePos.x) * Mathf.Rad2Deg; // ATan2 gives radians and multiplying by Rad2Deg returns the value in degrees
+		return Mathf.Atan2(RelativePos.z, RelativePos.x); //* Mathf.Rad2Deg; // ATan2 gives radians and multiplying by Rad2Deg returns the value in degrees
     }
+	
+	private float prevAngle;
+	
+	public void OnTriggerEnter(Collider HandCol)
+	{
+		if(HandCol.tag == "Hand")
+		{
+			
+			if( (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger)) > 0.5 || (OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger)) > 0.5 )
+			{
+				prevAngle = CalculateRawAngle();
+				held = true;
+			}
+		}
+		
+		
+	}
 	
 
     // Update is called once per frame
@@ -62,12 +80,30 @@ public class SteeringTest : MonoBehaviour
     }//end update()
 	
 	
-	void OnTriggerStay(Collider target)
+	public void OnTriggerStay(Collider target)
 	{
+		Debug.Log("Stay");
+			
 		if(target.tag == "Hand") //when hands enter the steering wheel collider
 		{
-			//Debug.Log("Grabbable");
+			Debug.Log("Grabbable");
 			
+			
+			if( (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger)) > 0.5 || (OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger)) > 0.5 )
+			{
+				Debug.Log("Trigger held");
+			
+				float Angle = CalculateRawAngle();
+				float AngleDelta = Angle - prevAngle;
+				//aternion q = Quaternion.AngleAxis(AngleDelta * Mathf.Rad2Deg, transform.up);
+				//transform.rotation = q*transform.rotation;
+				transform.Rotate(0, AngleDelta*Mathf.Rad2Deg, 0);
+				prevAngle = Angle;
+				held = true;
+			}
+			
+		}
+			/*
 			//if trigger is pulled (Axis1d returns a float of 0.0 to 1.0 
 			//if it's more than half pulled the folling will trigger
 			while( (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger)) > 0.5)
@@ -120,7 +156,7 @@ public class SteeringTest : MonoBehaviour
 				
 			}//end while
 		}
-		
+		*/
 	}//end onTriggerStay()
 	
 	
