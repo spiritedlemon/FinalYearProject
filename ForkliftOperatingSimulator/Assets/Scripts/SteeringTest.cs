@@ -13,11 +13,12 @@ public class SteeringTest : MonoBehaviour
 	
 	//SteeringWheel Relative Point
 	public GameObject StWheel;
-	public GameObject Hand;
+	public Transform Hand;
 	
-	//Hand and wheel rel position
-	public Vector3 RelativePos;
-	
+
+    public Vector3 oldGrabPoint;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,17 +26,7 @@ public class SteeringTest : MonoBehaviour
     }
 	
 	
-	float CalculateRawAngle()
-    {
-        RelativePos = StWheel.transform.InverseTransformPoint(Hand.transform.position); // Relative position between the wheel and hand
-        float angle = Mathf.Atan2(RelativePos.x, RelativePos.z);
-        //return Mathf.Atan2(RelativePos.y, RelativePos.x) * Mathf.Rad2Deg; // ATan2 gives radians and multiplying by Rad2Deg returns the value in degrees
-        return angle; //* Mathf.Rad2Deg; // ATan2 gives radians and multiplying by Rad2Deg returns the value in degrees
-    }
 	
-	private float prevAngle;
-    private Quaternion prevQuat;
-
     // Update is called once per frame
     void Update()
     {
@@ -49,6 +40,15 @@ public class SteeringTest : MonoBehaviour
         held = false;
     }
 
+    public Vector3 CalculateGrabPoint()
+    {
+        Plane plane = new Plane(transform.up, transform.position);
+        Ray ray = new Ray(Hand.position, transform.up);
+        float distance;
+        plane.Raycast(ray, out distance);
+        return Hand.position + transform.up * distance;
+    }
+
     public void OnTriggerStay(Collider target)
 	{			
 		if(target.tag == "Hand") //when hands enter the steering wheel collider
@@ -58,24 +58,34 @@ public class SteeringTest : MonoBehaviour
             {
                 if (!held)
                 {
-                    prevAngle = CalculateRawAngle();
+                    oldGrabPoint = CalculateGrabPoint();
                     held = true;
                 }
                 else
                 {
-                    float Angle = CalculateRawAngle();
-                    Debug.Log(Angle);
-                    float AngleDelta = Angle - prevAngle;
-                    //aternion q = Quaternion.AngleAxis(AngleDelta * Mathf.Rad2Deg, transform.up);
-                    //transform.rotation = q*transform.rotation;
-                    transform.Rotate(0, AngleDelta * Mathf.Rad2Deg, 0);
-                    prevAngle = Angle;
+                    Vector3 grabPoint = CalculateGrabPoint();
+
+                    // Calculate the angle
+                    Vector3 from = grabPoint - transform.position;
+                    Vector3 to = oldGrabPoint - transform.position;
+                    float angle = Vector3.Angle(grabPoint, oldGrabPoint);
+
+                    // Calculate the direction, positive or negative
+                    Vector3 up1 = Vector3.Cross(from, to); // This will be an up or down vector
+                    float dot = Vector3.Dot(transform.up, up1);
+                    if (dot > 0)
+                    {
+                        angle = -angle;
+                    }
+                    oldGrabPoint = grabPoint;
+                    transform.Rotate(0, angle, 0);
                 }
             }
             else
             {
                 held = false;
             }
+                
 		}
 
 	}//end onTriggerStay()
