@@ -29,7 +29,7 @@ public class SteeringTest : MonoBehaviour
     {
         RelativePos = StWheel.transform.InverseTransformPoint(Hand.transform.position); // Relative position between the wheel and hand
         
-        return Mathf.Atan2(RelativePos.y, RelativePos.x) * Mathf.Rad2Deg; // Returns angle in radians
+        return Mathf.Atan2(RelativePos.y, RelativePos.x) * Mathf.Rad2Deg; // ATan2 gives radians and multiplying by Rad2Deg returns the value in degrees
     }
 	
 
