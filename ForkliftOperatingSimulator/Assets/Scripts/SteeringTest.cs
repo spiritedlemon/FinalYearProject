@@ -5,18 +5,14 @@ using UnityEngine;
 public class SteeringTest : MonoBehaviour
 {
 	
-	////private IEnumerator held1;
-	
 	//Is wheel held or not (false by default)
 	public bool held = false;
 	
-	//Offset between wheel rotation and hand position on grab
-	private float angleStickyOffset; 
 	
 	////public SteeringWheelOutPut steeringWheelOutPut;
 	
 	//SteeringWheel Relative Point
-	public GameObject WheelBase;
+	public GameObject StWheel;
 	public GameObject Hand;
 	
 	//Hand and wheel rel position
@@ -28,19 +24,12 @@ public class SteeringTest : MonoBehaviour
         
     }
 	
-	/*
-	void CalculateOffset()
-    {
-        float rawAngle = CalculateRawAngle();
-        angleStickyOffset = outputAngle - rawAngle;
-    }
-	*/
 	
 	float CalculateRawAngle()
     {
-        RelativePos = WheelBase.transform.InverseTransformPoint(Hand.transform.position); // GETTING RELATIVE POSITION BETWEEN STEERING WHEEL BASE AND HAND
+        RelativePos = StWheel.transform.InverseTransformPoint(Hand.transform.position); // Relative position between the wheel and hand
         
-        return Mathf.Atan2(RelativePos.y, RelativePos.x) * Mathf.Rad2Deg; // GETTING CIRCULAR DATA FROM X & Y RELATIVES  VECTORS
+        return Mathf.Atan2(RelativePos.y, RelativePos.x) * Mathf.Rad2Deg; // Returns angle in radians
     }
 	
 
@@ -53,16 +42,14 @@ public class SteeringTest : MonoBehaviour
         float angle;
         if (held)
         {
-            angle = CalculateRawAngle(); // + angleStickyOffset; // When hands are holding the wheel hand dictates how the wheel moves
-			Debug.Log(angle);
-            // angleSticky Offset is calculated on wheel grab - makes wheel not to rotate instantly to the users hand
+            angle = CalculateRawAngle(); // When hands are holding the wheel, hand dictates how the wheel moves
+			Debug.Log(angle); //Printing 5.8 at 0 and 11.6 at 80 degrees
         }
 		
 		
 		
-		//outputAngle = hookedAngles(angle);// SETTING OUTPUT THROUGH FUNCTION
 		//Rotate wheel around Y axis
-		//transform.localEulerAngles = new Vector3(outputAngle+90, -90, -90); 
+		//transform.localEulerAngles = 
 		
 		
 		//Rotate with hand movement if grabbed == true
@@ -73,8 +60,6 @@ public class SteeringTest : MonoBehaviour
 		*/
         
     }//end update()
-	
-	
 	
 	
 	void OnTriggerStay(Collider target)
@@ -138,16 +123,6 @@ public class SteeringTest : MonoBehaviour
 		
 	}//end onTriggerStay()
 	
-	/*
-	private IEnumerator held()
-	{
-		
-		Debug.Log("In Thread");
-		
-		//return 0;
-		
-	}
-	*/
 	
 	
 }//end main()
