@@ -30,7 +30,7 @@ public class SteeringWheel : MonoBehaviour
 		*/
         
     }
-	
+	/*
 	void OnTriggerStay(Collider target)
 	{
 		if(target.tag == "Hand") //when hands enter the steering wheel collider
@@ -91,7 +91,7 @@ public class SteeringWheel : MonoBehaviour
 		}
 		
 	}//end onTriggerStay()
-	
+	*/
 	/*
 	private IEnumerator held()
 	{
