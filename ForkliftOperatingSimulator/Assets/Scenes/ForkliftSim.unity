@@ -822,7 +822,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17560
+  m_Name: pb_Mesh29818
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1104,7 +1104,6 @@ GameObject:
   - component: {fileID: 282328458}
   - component: {fileID: 282328457}
   - component: {fileID: 282328461}
-  - component: {fileID: 282328460}
   - component: {fileID: 282328462}
   m_Layer: 0
   m_Name: RotatePoint
@@ -1187,19 +1186,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 282328455}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &282328460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 282328455}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9385f1ae30026440b9bad6b4fc1435b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  held: 0
 --- !u!135 &282328461
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6028,7 +6014,7 @@ Transform:
   m_GameObject: {fileID: 1807260113}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 28.64, y: 0, z: 26.12}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 1654315688}
   - {fileID: 1148776568}
@@ -6804,7 +6790,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17484
+  m_Name: pb_Mesh29742
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -11291,7 +11277,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17602
+  m_Name: pb_Mesh29860
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2

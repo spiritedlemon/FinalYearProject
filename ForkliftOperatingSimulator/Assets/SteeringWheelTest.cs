@@ -41,7 +41,7 @@ public class SteeringWheelTest : MonoBehaviour
                 // Calculate the angle
                 Vector3 from = grabPoint - transform.position;
                 Vector3 to = oldGrabPoint - transform.position;
-                angle = Vector3.Angle(grabPoint, oldGrabPoint);
+                angle = Vector3.Angle(from, to);
 
                 // Calculate the direction, positive or negative
                 Vector3 up1 = Vector3.Cross(from, to); // This will be an up or down vector
@@ -59,14 +59,25 @@ public class SteeringWheelTest : MonoBehaviour
             held = false;
         }
 
+        float speed = 5;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            hand.transform.Translate(-Time.deltaTime, 0, 0);
+            hand.transform.Translate(-Time.deltaTime * speed, 0, 0);
         }
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            hand.transform.Translate(Time.deltaTime, 0, 0);
+            hand.transform.Translate(Time.deltaTime * speed, 0, 0);
+        }
+
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            hand.transform.Translate(0, 0, Time.deltaTime * speed);
+        }
+
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            hand.transform.Translate(0, 0, - Time.deltaTime * speed);
         }
     }
 
