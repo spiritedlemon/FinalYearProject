@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/steeringwheeltest.unity
+- path: Assets/Scenes/ForkliftSim.unity
   isLoaded: 1
   isActive: 1
