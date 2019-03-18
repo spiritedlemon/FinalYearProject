@@ -39,15 +39,6 @@ public class LeverFR : MonoBehaviour
         held = false;
     }
 
-    public void OnDrawGizmos()
-    {
-        Vector3 gp = oldGrabPoint;
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(gp, 1);
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(handPos, 1);        
-    }
 
     public Vector3 CalculateGrabPoint()
     {
