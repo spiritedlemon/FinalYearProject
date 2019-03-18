@@ -29,7 +29,9 @@ public class ControlLever : MonoBehaviour
     void Update()
     {
 		OVRInput.Update();
-        handPos = Hand.position;        
+        handPos = Hand.position;  
+
+		
     }//end update()
 
     public void OnTriggerExit(Collider other)
@@ -90,6 +92,29 @@ public class ControlLever : MonoBehaviour
                     
                     oldGrabPoint = grabPoint;
                     transform.Rotate(angle, 0, 0);
+					
+					
+					if (lever.transform.localEulerAngles.x >= 285)
+					{
+						//Debug.Log(lever.transform.localEulerAngles.x);
+						lever.transform.localEulerAngles =  new Vector3(285f, 0f, 0f);
+					}
+					if (lever.transform.localEulerAngles.x <= 260)
+					{
+						//Debug.Log(lever.transform.localEulerAngles.x);
+						
+						lever.transform.localEulerAngles =  new Vector3(260f, 0f, 0f);
+					}
+					/*
+					if (lever.transform.rotation.eulerAngles.x >= 359)
+					{
+						Debug.Log(lever.transform.rotation.eulerAngles.x);
+					}
+					if (lever.transform.rotation.eulerAngles.x <= 330)
+					{
+						Debug.Log(lever.transform.rotation.eulerAngles.x);
+					}
+					*/
                 }
             }
             else
