@@ -13,6 +13,10 @@ public class MastControl : MonoBehaviour {
     public Vector3 maxY; //The maximum height of the platform
     public Vector3 minY; //The minimum height of the platform
 	
+	//Min and max of moving forks sideways
+	public Vector3 sideMax;
+	public Vector3 sideMin;
+	
     
 
     private bool mastMoveTrue = false; //Whether or not you want to allow the mast movement
@@ -36,7 +40,7 @@ public class MastControl : MonoBehaviour {
         }
 		
 		
-		
+		//These are for raising/lowering the fork
         if (fork.transform.position.y >= maxY.y )
         {
 			//Stops the fork from continuing off the top of the mast
@@ -50,7 +54,7 @@ public class MastControl : MonoBehaviour {
         }
 		
 		
-		
+		//These are for raising/lowering the mast
 		//if mast already at max height
         if(mast.transform.position.y <= minYmast.y)
         {
@@ -62,6 +66,20 @@ public class MastControl : MonoBehaviour {
             mast.transform.position = new Vector3(mast.transform.position.x, maxYmast.y, mast.transform.position.z);
         }
 		
+		/*
+		//These are for shifting the fork left/right
+		if (fork.transform.position.x >= sideMax.x )
+        {
+			//Stops the fork from continuing off the side of the mast
+            fork.transform.position = new Vector3(sideMax.x, fork.transform.position.y, fork.transform.position.z);
+        }
+		
+        if (fork.transform.position.x <= sideMin.x)
+        {
+			//Stops fork from moving off the other side of the mast
+           fork.transform.position = new Vector3(sideMin.x, fork.transform.position.y, fork.transform.position.z);
+        }
+		*/
 		
 		
 		//'-' key lowers fork & mast 
@@ -87,6 +105,17 @@ public class MastControl : MonoBehaviour {
           
         }
 		
-
-    }
+		
+		if(Input.GetKey(KeyCode.Minus))
+        {
+            fork.Translate(-Vector3.right * speedTranslate * Time.deltaTime);
+        }
+		
+        if(Input.GetKey(KeyCode.Equals))
+        {
+           fork.Translate(Vector3.right * speedTranslate * Time.deltaTime);
+        }
+	
+	
+    }//end fixedUpdate()
 }
