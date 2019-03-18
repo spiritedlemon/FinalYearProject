@@ -9,10 +9,8 @@ public class ControlLever : MonoBehaviour
 	public bool held = false;
 	
 	
-	////public SteeringWheelOutPut steeringWheelOutPut;
-	
-	//SteeringWheel Relative Point
-	public GameObject StWheel;
+	//Lever Relative Point
+	public GameObject lever;
 	public Transform Hand;
 	
 
@@ -51,11 +49,11 @@ public class ControlLever : MonoBehaviour
 
     public Vector3 CalculateGrabPoint()
     {
-        Plane plane = new Plane(transform.up, transform.position);
-        Ray ray = new Ray(handPos, transform.up);
+        Plane plane = new Plane(transform.right, transform.position);
+        Ray ray = new Ray(handPos, transform.right);
         float distance;
         plane.Raycast(ray, out distance);
-        return handPos + transform.up * distance;
+        return handPos + transform.right * distance;
     }
 
     Vector3 handPos;
@@ -84,14 +82,14 @@ public class ControlLever : MonoBehaviour
 
                     // Calculate the direction, positive or negative
                     Vector3 up1 = Vector3.Cross(from, to); // This will be an up or down vector
-                    float dot = Vector3.Dot(transform.up, up1);
+                    float dot = Vector3.Dot(transform.right, up1);
                     if (dot > 0)
                     {
                         angle = -angle;
                     }
                     
                     oldGrabPoint = grabPoint;
-                    transform.Rotate(0, angle, 0);
+                    transform.Rotate(angle, 0, 0);
                 }
             }
             else

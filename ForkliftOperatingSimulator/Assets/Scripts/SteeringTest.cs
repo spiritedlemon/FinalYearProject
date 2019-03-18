@@ -18,7 +18,7 @@ public class SteeringTest : MonoBehaviour
 
     public Vector3 oldGrabPoint;
 	
-	public float maxrot = 270f;
+	//public float maxrot = 270f;
 
 
     // Start is called before the first frame update
