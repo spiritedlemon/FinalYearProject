@@ -662,7 +662,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh8720
+  m_Name: pb_Mesh16000
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1040,6 +1040,7 @@ MonoBehaviour:
   StWheel: {fileID: 282328455}
   Hand: {fileID: 1505525821}
   oldGrabPoint: {x: 0, y: 0, z: 0}
+  maxrot: 270
 --- !u!1 &428186271
 GameObject:
   m_ObjectHideFlags: 0
@@ -3832,7 +3833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   held: 0
-  leverObject: {fileID: 970030711}
+  StWheel: {fileID: 0}
   Hand: {fileID: 1505525823}
   oldGrabPoint: {x: 0, y: 0, z: 0}
 --- !u!65 &970030714
@@ -4285,7 +4286,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh8622
+  m_Name: pb_Mesh15928
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -6650,7 +6651,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh8742
+  m_Name: pb_Mesh16022
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2

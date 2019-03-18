@@ -17,6 +17,8 @@ public class SteeringTest : MonoBehaviour
 	
 
     public Vector3 oldGrabPoint;
+	
+	public float maxrot = 270f;
 
 
     // Start is called before the first frame update
@@ -31,7 +33,17 @@ public class SteeringTest : MonoBehaviour
     void Update()
     {
 		OVRInput.Update();
-        handPos = Hand.position;        
+        handPos = Hand.position;   
+
+		/*
+		if (StWheel.transform.rotation.eulerAngles.y >= maxrot)
+		 {
+			//StWheel.transform.rotation.eulerAngles.y = maxrot;
+			//StWheel.transform.Rotate(0, maxrot, 0);
+			Debug.Log("Yup");
+		 }
+		 */
+		
     }//end update()
 
     public void OnTriggerExit(Collider other)

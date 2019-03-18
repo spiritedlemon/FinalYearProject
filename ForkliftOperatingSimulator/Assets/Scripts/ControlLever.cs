@@ -5,10 +5,14 @@ using UnityEngine;
 public class ControlLever : MonoBehaviour
 {
 	
-	//Is wheel held or not (false by default)
+	//Is object held or not (false by default)
 	public bool held = false;
 	
-	public GameObject leverObject;
+	
+	////public SteeringWheelOutPut steeringWheelOutPut;
+	
+	//SteeringWheel Relative Point
+	public GameObject StWheel;
 	public Transform Hand;
 	
 
@@ -87,7 +91,7 @@ public class ControlLever : MonoBehaviour
                     }
                     
                     oldGrabPoint = grabPoint;
-                    transform.Rotate(angle, 0, 0);
+                    transform.Rotate(0, angle, 0);
                 }
             }
             else
