@@ -77,7 +77,8 @@ public class SteeringTest : MonoBehaviour
         if(target.tag == "Hand") //when hands enter the steering wheel collider
 		{
             //Debug.Log("Grabbable");			
-            if ((OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger)) > 0.5 || (OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger)) > 0.5)
+			//|| (OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger)) > 0.5
+            if ((OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger)) > 0.5 )
             {
                 if (!held)
                 {

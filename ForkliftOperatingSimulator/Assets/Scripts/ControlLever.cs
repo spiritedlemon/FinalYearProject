@@ -105,16 +105,7 @@ public class ControlLever : MonoBehaviour
 						
 						lever.transform.localEulerAngles =  new Vector3(260f, 0f, 0f);
 					}
-					/*
-					if (lever.transform.rotation.eulerAngles.x >= 359)
-					{
-						Debug.Log(lever.transform.rotation.eulerAngles.x);
-					}
-					if (lever.transform.rotation.eulerAngles.x <= 330)
-					{
-						Debug.Log(lever.transform.rotation.eulerAngles.x);
-					}
-					*/
+					
                 }
             }
             else

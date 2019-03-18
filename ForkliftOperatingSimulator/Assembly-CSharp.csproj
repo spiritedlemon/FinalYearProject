@@ -335,6 +335,7 @@
      <Compile Include="Assets\Oculus\VoiceMod\Scripts\OVRVoiceModContext.cs" />
      <Compile Include="Assets\Scripts\ControlLever.cs" />
      <Compile Include="Assets\Scripts\ForkliftController.cs" />
+     <Compile Include="Assets\Scripts\LeverFR.cs" />
      <Compile Include="Assets\Scripts\MastControl.cs" />
      <Compile Include="Assets\Scripts\SteeringTest.cs" />
      <Compile Include="Assets\SteeringWheelTest.cs" />
