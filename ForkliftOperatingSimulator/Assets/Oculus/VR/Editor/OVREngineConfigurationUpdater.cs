@@ -183,7 +183,8 @@ class OVREngineConfigurationUpdater
 					oculusFound |= (device == "Oculus");
 
 				if (!oculusFound)
-					Debug.LogError("Please add Oculus to the list of supported devices to use the Utilities.");
+                    //Done on compile by occulus sdk manager
+					//Debug.LogError("Please add Oculus to the list of supported devices to use the Utilities.");
 
 				return;
 			}
