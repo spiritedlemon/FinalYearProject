@@ -12,3 +12,13 @@ To operate a forklift, you need to have completed a training course which includ
 The theoretical section is on a number of subjects including operating practices, daily inspections and hydraulic systems.
 You also need practical training in manoeuvrability, handling pallets and forklift controls. 
 While it won’t be a total replacement for the current system, I feel this virtual reality (VR) operating simulator could help reduce this. 
+
+Controls:
+
+Right-hand trigger to accelerate, 
+Left-hand trigger to decelerate, 
+Right and Left-hand grip buttons to grab objects in the scene.
+
+Unity version: 2018.3.6f1
+
+Steam VR version 1.2.3 required
