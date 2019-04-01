@@ -344,6 +344,13 @@
     <Compile Include="Assets\Scripts\ForkliftController.cs" />
     <Compile Include="Assets\Scripts\LeverFR.cs" />
     <Compile Include="Assets\Scripts\MastControl.cs" />
+    <Compile Include="Assets\Scripts\SteeringScripts\AcceleratorOutput.cs" />
+    <Compile Include="Assets\Scripts\SteeringScripts\ControlsManager.cs" />
+    <Compile Include="Assets\Scripts\SteeringScripts\JoystickOutput.cs" />
+    <Compile Include="Assets\Scripts\SteeringScripts\PlaneController.cs" />
+    <Compile Include="Assets\Scripts\SteeringScripts\rotorController.cs" />
+    <Compile Include="Assets\Scripts\SteeringScripts\SteeringWheelController.cs" />
+    <Compile Include="Assets\Scripts\SteeringScripts\SteeringWheelOutPut.cs" />
     <Compile Include="Assets\Scripts\SteeringTest.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_GazeTracker.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_LaserPointer.cs" />
