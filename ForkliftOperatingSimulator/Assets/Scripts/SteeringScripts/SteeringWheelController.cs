@@ -75,8 +75,10 @@ public class SteeringWheelController : MonoBehaviour
         return Mathf.Atan2(RelativePos.y, RelativePos.x) * Mathf.Rad2Deg; // GETTING CIRCULAR DATA FROM X & Y RELATIVES  VECTORS
     }
 
+
     void FixedUpdate()
     {
+
         steeringWheelOutPut.outAngle = outputAngle;
         float angle;
         if (HandSticked)

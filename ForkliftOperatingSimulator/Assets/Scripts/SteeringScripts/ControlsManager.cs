@@ -64,21 +64,31 @@ public class ControlsManager : MonoBehaviour {
             SteeringWheelStick = true;
             WheelController = SteeringWheel.GetComponent<SteeringWheelController>();
         }
+        /*
         else if (other.name == "LeverControl" && VRJoystickTracker.triggerPressed && !ConrolStickLever && !AcceleratelStickLever && !SteeringWheelStick) // STICK CONTROL LEVER
         {
             OnControlBegin(other);
         }
-        else if (other.name == "LeverAccelerate" && VRJoystickTracker.triggerPressed && !ConrolStickLever && !AcceleratelStickLever && !SteeringWheelStick) // STICK ACCELERATE LEVER
+        */
+        else if (other.name == "Lever(Forward/Reverse)" && VRJoystickTracker.triggerPressed && !ConrolStickLever && !AcceleratelStickLever && !SteeringWheelStick) // STICK ACCELERATE LEVER
         {
-            OnAcceleratorBegin(other);
+            SteeringWheel = other.gameObject;
+            SteeringWheelStick = true;
+            WheelController = SteeringWheel.GetComponent<SteeringWheelController>();
+            //LeverMovement(other);
         }
-        else if (other.name == "LeverTrigger" && VRJoystickTracker.triggerPressed && !ConrolStickLever && !AcceleratelStickLever && !SteeringWheelStick) // STICK ACCELERATE TRIGGER
+        else if (other.name == "Lever(Raise/Lower)" && VRJoystickTracker.triggerPressed && !ConrolStickLever && !AcceleratelStickLever && !SteeringWheelStick) // STICK ACCELERATE TRIGGER
         { 
-            OnAcceleratorBegin(other);
+            LeverMovement(other);
+        }
+        else if (other.name == "Lever(Left/Right)" && VRJoystickTracker.triggerPressed && !ConrolStickLever && !AcceleratelStickLever && !SteeringWheelStick) // STICK ACCELERATE TRIGGER
+        {
+            LeverMovement(other);
         }
 
     }
 
+    
     void OnControlBegin(Collider other)
     {
         joystickOutput = other.transform.root.GetComponent<JoystickOutput>();
@@ -92,8 +102,9 @@ public class ControlsManager : MonoBehaviour {
         RotateWhenPicked = transform.localEulerAngles.y;
         ConrolStickLever = true;
     }
+    
 
-    void OnAcceleratorBegin(Collider other)
+    void LeverMovement(Collider other)
     {
         acceleratorOutPut = other.transform.root.GetComponent<AcceleratorOutput>();
         acceleratorOutPut = other.GetComponentInParent<AcceleratorOutput>();
