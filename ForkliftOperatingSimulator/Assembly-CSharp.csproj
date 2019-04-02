@@ -344,9 +344,7 @@
     <Compile Include="Assets\Scripts\ForkliftController.cs" />
     <Compile Include="Assets\Scripts\LeverFR.cs" />
     <Compile Include="Assets\Scripts\MastControl.cs" />
-    <Compile Include="Assets\Scripts\SteeringScripts\AcceleratorOutput.cs" />
     <Compile Include="Assets\Scripts\SteeringScripts\ControlsManager.cs" />
-    <Compile Include="Assets\Scripts\SteeringScripts\JoystickOutput.cs" />
     <Compile Include="Assets\Scripts\SteeringScripts\SteeringWheelController.cs" />
     <Compile Include="Assets\Scripts\SteeringScripts\SteeringWheelOutPut.cs" />
     <Compile Include="Assets\Scripts\SteeringTest.cs" />

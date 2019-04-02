@@ -99,7 +99,7 @@ public class SteeringWheelController : MonoBehaviour
         if (textDisplay != null){
             textDisplay.text = Mathf.Round(outputAngle) + "" + ".00 deg. speed " + wheelLastSpeed;
         }
-        transform.localEulerAngles = new Vector3(outputAngle+90, -90, -90);// ROTATE WHEEL MODEL FACING TO THE PLAYA
+        transform.localEulerAngles = new Vector3(outputAngle+90, -90, -90);// ROTATE WHEEL MODEL FACING TO THE Player
 
         float haptic_speed_coeff = Mathf.Abs(lastValues[4] - lastValues[3]) + 1;
         if (Mathf.Abs(outputAngle % WHEEL_HAPTIC_FREQUENCY) <= haptic_speed_coeff &&
