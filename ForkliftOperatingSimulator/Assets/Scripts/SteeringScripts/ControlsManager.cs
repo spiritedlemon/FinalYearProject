@@ -10,6 +10,10 @@ public class ControlsManager : MonoBehaviour {
 
 
     public GameObject LeverObjectFR;
+    public GameObject LeverObjectRL;
+    public GameObject LeverObjectLR;
+    public GameObject LeverObjectTilt;
+
     LeverController LeverControl;
     bool LeverStick;
 
@@ -44,12 +48,22 @@ public class ControlsManager : MonoBehaviour {
             LeverControl = LeverObjectFR.GetComponent<LeverController>();
         }
         else if (other.name == "Lever(Raise/Lower)" && VRJoystickTracker.triggerPressed && !SteeringWheelStick) // STICK ACCELERATE TRIGGER
-        { 
-           // LeverMovement(other);
+        {
+            LeverObjectFR = other.gameObject;
+            LeverStick = true;
+            LeverControl = LeverObjectFR.GetComponent<LeverController>();
         }
         else if (other.name == "Lever(Left/Right)" && VRJoystickTracker.triggerPressed && !SteeringWheelStick) // STICK ACCELERATE TRIGGER
         {
-            //LeverMovement(other);
+            LeverObjectFR = other.gameObject;
+            LeverStick = true;
+            LeverControl = LeverObjectFR.GetComponent<LeverController>();
+        }
+        else if (other.name == "Lever(Tilt)" && VRJoystickTracker.triggerPressed && !SteeringWheelStick) // STICK ACCELERATE TRIGGER
+        {
+            LeverObjectFR = other.gameObject;
+            LeverStick = true;
+            LeverControl = LeverObjectFR.GetComponent<LeverController>();
         }
 
     }
