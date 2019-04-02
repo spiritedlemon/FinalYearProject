@@ -9,6 +9,11 @@ public class ControlsManager : MonoBehaviour {
     bool SteeringWheelStick;
 
 
+    public GameObject LeverObjectFR;
+    LeverController LeverControl;
+    bool LeverStick;
+
+
     [Header("Steam Controllers Inputs (auto)")]
     [HideInInspector]
     public SteamVR_TrackedController VRJoystickTracker;
@@ -34,7 +39,9 @@ public class ControlsManager : MonoBehaviour {
        
         else if (other.name == "Lever(Forward/Reverse)" && VRJoystickTracker.triggerPressed && !SteeringWheelStick) // STICK ACCELERATE LEVER
         {
-            //LeverMovement(other);
+            LeverObjectFR = other.gameObject;
+            LeverStick = true;
+            LeverControl = LeverObjectFR.GetComponent<LeverController>();
         }
         else if (other.name == "Lever(Raise/Lower)" && VRJoystickTracker.triggerPressed && !SteeringWheelStick) // STICK ACCELERATE TRIGGER
         { 
@@ -60,6 +67,15 @@ public class ControlsManager : MonoBehaviour {
             SteeringWheel = null;
             WheelController = null;
         }
+
+        if (LeverStick)
+        {
+            LeverControl.OnUnStick();
+            LeverStick = false; // STEERING WHEEL UNSTICK
+            LeverControl.Hand = null;
+            LeverObjectFR = null;
+            LeverControl = null;
+        }
     }
 
 	// Update is called once per frame
@@ -72,6 +88,15 @@ public class ControlsManager : MonoBehaviour {
                 WheelController.Hand = gameObject; // CHECK IF ALREADY HAND GRABBED
             }
             WheelController.OnStick(VRJoystickTracker);
+        }
+
+        if (LeverStick) // STEERING WHEEL CONTROLLER
+        {
+            if (!LeverControl.Hand)
+            {
+                LeverControl.Hand = gameObject; // CHECK IF ALREADY HAND GRABBED
+            }
+            LeverControl.OnStick(VRJoystickTracker);
         }
 
         if (!VRJoystickTracker.triggerPressed) // UNSTICK EVERYTHING

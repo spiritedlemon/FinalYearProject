@@ -13,7 +13,7 @@ public class SteeringWheelController : MonoBehaviour
     private float wheelLastSpeed; // wheel speed at moment of ungrab, then reduces graduelly due to INERTIA
     private float INERTIA = 0.95f; // 1-wheel never stops // 0 - wheel stops instantly
     public float MAX_ROTATION = 360; //maximal degree rotation of the wheel
-    private float WHEEL_HAPTIC_FREQUENCY = 360/12; //every wheel whill click 12 times per wheel rotation
+    private float WHEEL_HAPTIC_FREQUENCY = 360/6; //every wheel whill click 6 times per wheel rotation
 
     [Header("Steering Wheel Relative Point")]
     public GameObject WheelBase;
