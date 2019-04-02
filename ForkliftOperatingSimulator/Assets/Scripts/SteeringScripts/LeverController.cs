@@ -96,7 +96,8 @@ public class LeverController : MonoBehaviour
 
         outputAngle = hookedAngles(angle);// SETTING OUTPUT THROUGH FUNCTION
        
-        transform.localEulerAngles = new Vector3(outputAngle + 90, -90, -90);
+        //transform.localEulerAngles = new Vector3(outputAngle + 90, -90, -90);
+        transform.localEulerAngles = new Vector3(outputAngle, 0, 0);
 
         float haptic_speed_coeff = Mathf.Abs(lastValues[4] - lastValues[3]) + 1;
         if (Mathf.Abs(outputAngle % WHEEL_HAPTIC_FREQUENCY) <= haptic_speed_coeff &&
