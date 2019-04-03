@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class NPCPathing : MonoBehaviour
 {
     [SerializeField]
-    Transform _destination;
+    Transform dest;
 
     NavMeshAgent navMeshAgent;
 
@@ -16,21 +16,18 @@ public class NPCPathing : MonoBehaviour
     {
         navMeshAgent = this.GetComponent<NavMeshAgent>();
 
-        if (navMeshAgent == null)
-        {
-            Debug.LogError("The nav mesh agent component is not attached to " + gameObject.name);
-        }
-        else
+        if (navMeshAgent != null)
         {
             SetDestination();
         }
+        
     }
 
     private void SetDestination()
     {
-        if (_destination != null)
+        if (dest != null)
         {
-            Vector3 targetVector = _destination.transform.position;
+            Vector3 targetVector = dest.transform.position;
             navMeshAgent.SetDestination(targetVector);
         }
     }
