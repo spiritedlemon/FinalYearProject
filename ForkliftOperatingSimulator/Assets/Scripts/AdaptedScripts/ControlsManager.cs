@@ -17,6 +17,9 @@ public class ControlsManager : MonoBehaviour {
     LeverController LeverControl;
     bool LeverStick;
 
+    public bool rtriggerpulled = false;
+    public bool ltriggerpulled = false;
+
 
     [Header("Steam Controllers Inputs (auto)")]
     [HideInInspector]
@@ -105,15 +108,29 @@ public class ControlsManager : MonoBehaviour {
     void FixedUpdate ()
     {
 
-        if (Controller.GetPress(Valve.VR.EVRButtonId.k_EButton_Grip)) // It is supposed to return a boolean
+        //Should be getPressDown but has a minimum time between presses which cause issues
+        if (Controller.GetPress(Valve.VR.EVRButtonId.k_EButton_Grip))
         {
             if (trackedObject.tag == "rhand")
             {
-                Debug.Log("heyy");
+                rtriggerpulled = true;
+                //Debug.Log("accelerating");
             }
             if (trackedObject.tag == "lhand")
             {
-                Debug.Log("oh god its you");
+                ltriggerpulled = true;
+            }
+        }
+        if (Controller.GetPressUp(Valve.VR.EVRButtonId.k_EButton_Grip))
+        {
+            if (trackedObject.tag == "rhand")
+            {
+                rtriggerpulled = false;
+                //Debug.Log("not accelerating");
+            }
+            if (trackedObject.tag == "lhand")
+            {
+                ltriggerpulled = false;
             }
         }
 
