@@ -16,8 +16,16 @@ public class MastControl : MonoBehaviour {
 	//Min and max of moving forks sideways
 	public Vector3 sideMax;
 	public Vector3 sideMin;
-	
-    
+
+    public bool limitRight = false;
+    public bool limitLeft = false;
+
+
+    //Refs to other scripts
+    public LeverControlOutput upDown;
+    public LeverControlOutput leftRight;
+    public LeverControlOutput tiltLever;
+
 
     private bool mastMoveTrue = false; //Whether or not you want to allow the mast movement
 	
@@ -26,7 +34,6 @@ public class MastControl : MonoBehaviour {
     // Update is called once per (fixed) frame
     void FixedUpdate () {
 		
-		OVRInput.Update();
 		
 		//if fork not already at max height
         if(fork.transform.position.y >= maxYmast.y)
@@ -65,26 +72,11 @@ public class MastControl : MonoBehaviour {
         {
             mast.transform.position = new Vector3(mast.transform.position.x, maxYmast.y, mast.transform.position.z);
         }
-		
-		/*
-		//These are for shifting the fork left/right
-		if (fork.transform.position.x >= sideMax.x )
-        {
-			//Stops the fork from continuing off the side of the mast
-            fork.transform.position = new Vector3(sideMax.x, fork.transform.position.y, fork.transform.position.z);
-        }
-		
-        if (fork.transform.position.x <= sideMin.x)
-        {
-			//Stops fork from moving off the other side of the mast
-           fork.transform.position = new Vector3(sideMin.x, fork.transform.position.y, fork.transform.position.z);
-        }
-		*/
-		
+
 		
 		//'-' key lowers fork & mast 
         //if(Input.GetKey(KeyCode.Minus))
-		if(OVRInput.Get(OVRInput.Button.Three))
+        if(upDown.leverAngleOutput <= 10)
         {
 			//Debug.Log("Test: Mast Move Down");
             fork.Translate(-Vector3.up * speedTranslate * Time.deltaTime);
@@ -93,9 +85,9 @@ public class MastControl : MonoBehaviour {
                 mast.Translate(-Vector3.up * speedTranslate * Time.deltaTime);
             }
         }
-		//'=' key raises fork & mast 
+        //'=' key raises fork & mast 
         //if(Input.GetKey(KeyCode.Equals))
-		if(OVRInput.Get(OVRInput.Button.Four))
+        if (upDown.leverAngleOutput >= -10)
         {
            fork.Translate(Vector3.up * speedTranslate * Time.deltaTime);
             if(mastMoveTrue)
@@ -104,18 +96,40 @@ public class MastControl : MonoBehaviour {
             }
           
         }
-		
-		
-		if(Input.GetKey(KeyCode.Minus))
+
+        //Move left
+        if (leftRight.leverAngleOutput <= 10)
         {
             fork.Translate(-Vector3.right * speedTranslate * Time.deltaTime);
+
+            limitRight = false; //if moving left can no longer be at right limit
+
+            if (fork.transform.position.x >= sideMin.x)
+            {
+                limitLeft = true;
+            }
         }
-		
-        if(Input.GetKey(KeyCode.Equals))
+
+        //Move Right
+        if (leftRight.leverAngleOutput >= -10 && limitRight == false)
         {
-           fork.Translate(Vector3.right * speedTranslate * Time.deltaTime);
+            fork.Translate(Vector3.right * speedTranslate * Time.deltaTime);
+
+            limitLeft = false; //if moving right can no longer be at left limit
+
+            if(fork.transform.position.x >= sideMax.x)
+            {
+                limitRight = true;
+            }
         }
-	
-	
+
+
+        if (Input.GetKey(KeyCode.Minus)) //if (tiltLever.leverAngleOutput >= 10)
+        {
+            //
+        }
+
+
+
     }//end fixedUpdate()
 }
