@@ -107,7 +107,14 @@ public class ControlsManager : MonoBehaviour {
 
         if (Controller.GetPress(Valve.VR.EVRButtonId.k_EButton_Grip)) // It is supposed to return a boolean
         {
-            Debug.Log("heyy");
+            if (trackedObject.tag == "rhand")
+            {
+                Debug.Log("heyy");
+            }
+            if (trackedObject.tag == "lhand")
+            {
+                Debug.Log("oh god its you");
+            }
         }
 
         if (SteeringWheelStick) // STEERING WHEEL CONTROLLER
