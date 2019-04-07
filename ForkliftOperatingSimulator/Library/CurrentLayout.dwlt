@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 524}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 474}
   m_MaxSize: {x: 18008, y: 14024}
   vertical: 0
-  controlID: 155
+  controlID: 156
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 348}
   m_MaxSize: {x: 4002, y: 8048}
   vertical: 1
-  controlID: 55
+  controlID: 28
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_MinSize: {x: 234, y: 474}
   m_MaxSize: {x: 10004, y: 14024}
   vertical: 1
-  controlID: 109
+  controlID: 88
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -361,10 +361,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -309.2
-    m_HBaseRangeMax: 309.2
-    m_VBaseRangeMin: -94.4
-    m_VBaseRangeMax: 94.4
+    m_HBaseRangeMin: -386.5
+    m_HBaseRangeMax: 386.5
+    m_VBaseRangeMin: -118
+    m_VBaseRangeMax: 118
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -436,9 +436,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 20.767746, y: 7.8950577, z: 26.218943}
+    m_Target: {x: -48.5176, y: 1.309411, z: 22.3812}
     speed: 2
-    m_Value: {x: 20.767746, y: 7.8950577, z: 26.218943}
+    m_Value: {x: -48.5176, y: 1.309411, z: 22.3812}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -466,13 +466,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.20911498, y: 0.7823794, z: -0.34462202, w: 0.4747516}
+    m_Target: {x: 0.0030014948, y: 0.99239165, z: -0.12057625, w: 0.024721852}
     speed: 2
-    m_Value: {x: 0.20911498, y: 0.7823794, z: -0.34462202, w: 0.4747516}
+    m_Value: {x: 0.0030014948, y: 0.99239165, z: -0.12057625, w: 0.024721852}
   m_Size:
-    m_Target: 88.19837
+    m_Target: 0.8890509
     speed: 2
-    m_Value: 88.19837
+    m_Value: 0.8890509
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -539,23 +539,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 3aa1ffff
-      m_LastClickedID: -24262
-      m_ExpandedIDs: 3aa1ffffded7ffffd2fbffff2c270000
+      m_SelectedIDs: 4c290000
+      m_LastClickedID: 10572
+      m_ExpandedIDs: d2fbffff1e260000022900003a2900004c290000b6290000ee290000e82a0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: LeverObjectFR
+        m_OriginalName: LeverObjectFR
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: 10734
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 10}
       m_SearchString: 
@@ -603,20 +603,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Materials
+    - Assets/Scripts/AdaptedScripts
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Materials
+  - Assets/Scripts/AdaptedScripts
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\simon\OneDrive\Desktop\FYP\ProjectPrototype\ForkliftOperatingSimulator
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b6130000
-    m_LastClickedID: 5046
-    m_ExpandedIDs: 00000000f8110000fc120000b4150000f615000000170000741b0000b01c0000481f000092220000fc220000024c0000044c0000064c0000084c00000a4c00000c4c00000e4c0000104c0000124c0000144c000000ca9a3b
+    m_SelectedIDs: 06160000
+    m_LastClickedID: 5638
+    m_ExpandedIDs: 00000000fa11000000130000b8150000fa150000041700007c1b0000ba1c0000541f00009e22000008230000c2480000c4480000c6480000c8480000ca480000cc480000ce480000d0480000d2480000d448000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -644,7 +644,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000f8110000fc120000b4150000f615000000170000261a0000741b0000b01c0000481f000092220000fc220000024c0000044c0000064c0000084c00000a4c00000c4c00000e4c0000104c0000124c0000144c0000
+    m_ExpandedIDs: 00000000fa11000000130000b8150000fa150000041700007c1b0000ba1c0000541f00009e22000008230000c2480000c4480000c6480000c8480000ca480000cc480000ce480000d0480000d2480000d4480000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
