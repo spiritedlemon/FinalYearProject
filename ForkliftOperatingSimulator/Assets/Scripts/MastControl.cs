@@ -9,6 +9,8 @@ public class MastControl : MonoBehaviour {
 	
 	public Vector3 maxYmast; //The maximum height of the mast
     public Vector3 minYmast; //The minimum height of the mast
+    public float mastRot = 0; //track mast rotation
+    public float rotSpeed = 1.5f; //speed of mast rotation
 	
     public Vector3 maxY; //The maximum height of the platform
     public Vector3 minY; //The minimum height of the platform
@@ -98,7 +100,7 @@ public class MastControl : MonoBehaviour {
         }
 
         //Move left
-        if (leftRight.leverAngleOutput <= 10)
+        if (leftRight.leverAngleOutput <= 10 && limitLeft == false)
         {
             fork.Translate(-Vector3.right * speedTranslate * Time.deltaTime);
 
@@ -124,9 +126,22 @@ public class MastControl : MonoBehaviour {
         }
 
 
-        if (Input.GetKey(KeyCode.Minus)) //if (tiltLever.leverAngleOutput >= 10)
+        if (tiltLever.leverAngleOutput >= 10) 
         {
-            //
+            if (mastRot < 1)
+            {
+                mastRot += Time.deltaTime * rotSpeed;
+                mast.transform.localEulerAngles = new Vector3(mastRot, 0, 0);
+            }
+        }
+
+        if (tiltLever.leverAngleOutput <= -10) 
+        {
+            if (mastRot > -5)
+            {
+                mastRot -= Time.deltaTime * rotSpeed;
+                mast.transform.localEulerAngles = new Vector3(mastRot, 0, 0);
+            }
         }
 
 

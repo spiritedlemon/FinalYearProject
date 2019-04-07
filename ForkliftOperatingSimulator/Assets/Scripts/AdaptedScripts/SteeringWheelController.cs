@@ -23,7 +23,6 @@ public class SteeringWheelController : MonoBehaviour
 
     [Header("Output steering wheel angle")]
     public float outputAngle=0;
-    public TextMesh textDisplay;
 
     public SteeringWheelOutPut steeringWheelOutPut;
 
@@ -96,9 +95,8 @@ public class SteeringWheelController : MonoBehaviour
         lastValues.Add(angle); // ADD LAST ITEM TO ARRAY
 
         outputAngle = hookedAngles(angle);// SETTING OUTPUT THROUGH FUNCTION
-        if (textDisplay != null){
-            textDisplay.text = Mathf.Round(outputAngle) + "" + ".00 deg. speed " + wheelLastSpeed;
-        }
+
+        //Debug.Log(Mathf.Round(outputAngle))
         transform.localEulerAngles = new Vector3(outputAngle+90, -90, -90);// ROTATE WHEEL MODEL FACING TO THE Player
 
         float haptic_speed_coeff = Mathf.Abs(lastValues[4] - lastValues[3]) + 1;
