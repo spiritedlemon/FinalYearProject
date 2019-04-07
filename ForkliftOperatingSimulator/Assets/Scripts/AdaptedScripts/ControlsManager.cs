@@ -22,14 +22,21 @@ public class ControlsManager : MonoBehaviour {
     [HideInInspector]
     public SteamVR_TrackedController VRJoystickTracker;
 
-
-
-    float RotateWhenPicked;
+    private SteamVR_TrackedObject trackedObject;
 
 
     // Use this for initialization
     void Start () {
         VRJoystickTracker = gameObject.GetComponent<SteamVR_TrackedController>();
+        trackedObject = GetComponent<SteamVR_TrackedObject>();
+    }
+
+    private SteamVR_Controller.Device Controller
+    {
+        get
+        {
+            return SteamVR_Controller.Input((int)trackedObject.index);
+        }
     }
 
     void OnTriggerStay(Collider other)
@@ -92,8 +99,16 @@ public class ControlsManager : MonoBehaviour {
         }
     }
 
-	// Update is called once per frame
-	void FixedUpdate () {
+    
+
+    // Update is called once per frame
+    void FixedUpdate ()
+    {
+
+        if (Controller.GetPress(Valve.VR.EVRButtonId.k_EButton_Grip)) // It is supposed to return a boolean
+        {
+            Debug.Log("heyy");
+        }
 
         if (SteeringWheelStick) // STEERING WHEEL CONTROLLER
         {
