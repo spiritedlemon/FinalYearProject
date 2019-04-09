@@ -350,6 +350,7 @@
     <Compile Include="Assets\Scripts\LeverFR.cs" />
     <Compile Include="Assets\Scripts\MastControl.cs" />
     <Compile Include="Assets\Scripts\NavMesh\NPCPathing.cs" />
+    <Compile Include="Assets\Scripts\NavMesh\Waypoint.cs" />
     <Compile Include="Assets\Scripts\SteeringTest.cs" />
     <Compile Include="Assets\Scripts\SteeringWheelTest.cs" />
     <Compile Include="Assets\Scripts\wheelRotation.cs" />
