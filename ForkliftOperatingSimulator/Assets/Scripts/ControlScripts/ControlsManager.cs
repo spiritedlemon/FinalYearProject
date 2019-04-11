@@ -44,6 +44,7 @@ public class ControlsManager : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
+        //If hand is touching the object SteeringWheelCore && the trigger is pulled in 
         if (other.name == "SteeringWheelCore" && VRJoystickTracker.triggerPressed && !SteeringWheelStick)
         {
             SteeringWheel = other.gameObject;
@@ -51,25 +52,25 @@ public class ControlsManager : MonoBehaviour {
             WheelController = SteeringWheel.GetComponent<SteeringWheelController>();
         }
        
-        else if (other.name == "Lever(Forward/Reverse)" && VRJoystickTracker.triggerPressed && !SteeringWheelStick) // STICK ACCELERATE LEVER
+        else if (other.name == "Lever(Forward/Reverse)" && VRJoystickTracker.triggerPressed && !SteeringWheelStick) 
         {
             LeverObjectFR = other.gameObject;
             LeverStick = true;
             LeverControl = LeverObjectFR.GetComponent<LeverController>();
         }
-        else if (other.name == "Lever(Raise/Lower)" && VRJoystickTracker.triggerPressed && !SteeringWheelStick) // STICK ACCELERATE TRIGGER
+        else if (other.name == "Lever(Raise/Lower)" && VRJoystickTracker.triggerPressed && !SteeringWheelStick) 
         {
             LeverObjectFR = other.gameObject;
             LeverStick = true;
             LeverControl = LeverObjectFR.GetComponent<LeverController>();
         }
-        else if (other.name == "Lever(Left/Right)" && VRJoystickTracker.triggerPressed && !SteeringWheelStick) // STICK ACCELERATE TRIGGER
+        else if (other.name == "Lever(Left/Right)" && VRJoystickTracker.triggerPressed && !SteeringWheelStick) 
         {
             LeverObjectFR = other.gameObject;
             LeverStick = true;
             LeverControl = LeverObjectFR.GetComponent<LeverController>();
         }
-        else if (other.name == "Lever(Tilt)" && VRJoystickTracker.triggerPressed && !SteeringWheelStick) // STICK ACCELERATE TRIGGER
+        else if (other.name == "Lever(Tilt)" && VRJoystickTracker.triggerPressed && !SteeringWheelStick) 
         {
             LeverObjectFR = other.gameObject;
             LeverStick = true;
@@ -92,7 +93,7 @@ public class ControlsManager : MonoBehaviour {
             WheelController = null;
         }
 
-        if (LeverStick)
+        if (LeverStick) //used for all levers
         {
             LeverControl.OnUnStick();
             LeverStick = false; // STEERING WHEEL UNSTICK
@@ -111,9 +112,9 @@ public class ControlsManager : MonoBehaviour {
         //Should be getPressDown but has a minimum time between presses which cause issues
         if (Controller.GetPress(Valve.VR.EVRButtonId.k_EButton_Grip))
         {
-            if (trackedObject.tag == "rhand")
+            if (trackedObject.tag == "rhand") //if right hand trigger is pulled
             {
-                rtriggerpulled = true;
+                rtriggerpulled = true; //set to true (This is used in Forklift control to add acceleration to vehicle
                 //Debug.Log("accelerating");
             }
             if (trackedObject.tag == "lhand")

@@ -1,6 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+    
+    This script controls the mast and forks of the vehicle
+    This is done by reading in the angle the control levers are rotated by and, 
+    if they are pushed/pulled enough, trigger the correct action
+    
+ */
+
+
 public class MastControl : MonoBehaviour {
 
     public Transform fork; 
