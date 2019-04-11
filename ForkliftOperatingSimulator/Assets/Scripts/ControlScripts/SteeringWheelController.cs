@@ -1,6 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/*
+ 
+     This script was originally from an online project available here:
+     https://github.com/Oyshoboy/VRJoystickAndSteeringWheel
+
+    In the project it is attatched to the 'Steering Wheel' object 
+     
+     */
+
+
 public class SteeringWheelController : MonoBehaviour
 {
 

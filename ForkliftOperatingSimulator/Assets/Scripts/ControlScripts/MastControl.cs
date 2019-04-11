@@ -106,7 +106,7 @@ public class MastControl : MonoBehaviour {
 
             limitRight = false; //if moving left can no longer be at right limit
 
-            if (fork.transform.position.x >= sideMin.x)
+            if (fork.transform.localPosition.x <= sideMin.x)
             {
                 limitLeft = true;
             }
@@ -119,7 +119,7 @@ public class MastControl : MonoBehaviour {
 
             limitLeft = false; //if moving right can no longer be at left limit
 
-            if(fork.transform.position.x >= sideMax.x)
+            if(fork.transform.localPosition.x >= sideMax.x)
             {
                 limitRight = true;
             }
