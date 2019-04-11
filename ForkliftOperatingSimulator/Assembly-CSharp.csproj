@@ -340,20 +340,20 @@
     <Compile Include="Assets\Oculus\VoiceMod\Scripts\Helpers\OVRMicInput.cs" />
     <Compile Include="Assets\Oculus\VoiceMod\Scripts\OVRVoiceMod.cs" />
     <Compile Include="Assets\Oculus\VoiceMod\Scripts\OVRVoiceModContext.cs" />
-    <Compile Include="Assets\Scripts\AdaptedScripts\ControlsManager.cs" />
-    <Compile Include="Assets\Scripts\AdaptedScripts\SteeringWheelController.cs" />
-    <Compile Include="Assets\Scripts\AdaptedScripts\SteeringWheelOutPut.cs" />
-    <Compile Include="Assets\Scripts\ControlLever.cs" />
-    <Compile Include="Assets\Scripts\ForkliftController.cs" />
-    <Compile Include="Assets\Scripts\LeverController.cs" />
-    <Compile Include="Assets\Scripts\LeverControlOutput.cs" />
-    <Compile Include="Assets\Scripts\LeverFR.cs" />
-    <Compile Include="Assets\Scripts\MastControl.cs" />
-    <Compile Include="Assets\Scripts\NavMesh\NPCPathing.cs" />
-    <Compile Include="Assets\Scripts\NavMesh\Waypoint.cs" />
-    <Compile Include="Assets\Scripts\SteeringTest.cs" />
-    <Compile Include="Assets\Scripts\SteeringWheelTest.cs" />
-    <Compile Include="Assets\Scripts\wheelRotation.cs" />
+    <Compile Include="Assets\Scripts\ControlScripts\ControlsManager.cs" />
+    <Compile Include="Assets\Scripts\ControlScripts\ForkliftController.cs" />
+    <Compile Include="Assets\Scripts\ControlScripts\LeverController.cs" />
+    <Compile Include="Assets\Scripts\ControlScripts\LeverControlOutput.cs" />
+    <Compile Include="Assets\Scripts\ControlScripts\MastControl.cs" />
+    <Compile Include="Assets\Scripts\ControlScripts\SteeringWheelController.cs" />
+    <Compile Include="Assets\Scripts\ControlScripts\SteeringWheelOutPut.cs" />
+    <Compile Include="Assets\Scripts\ControlScripts\wheelRotation.cs" />
+    <Compile Include="Assets\Scripts\NPC\NPCPathing.cs" />
+    <Compile Include="Assets\Scripts\NPC\Waypoint.cs" />
+    <Compile Include="Assets\Scripts\Unused Scripts\ControlLever.cs" />
+    <Compile Include="Assets\Scripts\Unused Scripts\LeverFR.cs" />
+    <Compile Include="Assets\Scripts\Unused Scripts\SteeringTest.cs" />
+    <Compile Include="Assets\Scripts\Unused Scripts\SteeringWheelTest.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_GazeTracker.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_LaserPointer.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_Teleporter.cs" />
@@ -494,25 +494,25 @@
     <None Include="Assets\Oculus\SampleFramework\Usage\DistanceGrab\Materials\CrosshairZCheat.shader" />
     <None Include="Assets\SteamVR\InteractionSystem\Readme_InteractionSystem.txt" />
     <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
-      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/ProjectPrototype/ForkliftOperatingSimulator/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
+      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/FinalYearProject/ForkliftOperatingSimulator/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/ProjectPrototype/ForkliftOperatingSimulator/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/FinalYearProject/ForkliftOperatingSimulator/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/ProjectPrototype/ForkliftOperatingSimulator/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/FinalYearProject/ForkliftOperatingSimulator/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/ProjectPrototype/ForkliftOperatingSimulator/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/FinalYearProject/ForkliftOperatingSimulator/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ProBuilder.AddOns.Editor">
-      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/ProjectPrototype/ForkliftOperatingSimulator/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
+      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/FinalYearProject/ForkliftOperatingSimulator/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/ProjectPrototype/ForkliftOperatingSimulator/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/FinalYearProject/ForkliftOperatingSimulator/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/ProjectPrototype/ForkliftOperatingSimulator/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/FinalYearProject/ForkliftOperatingSimulator/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -716,13 +716,13 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/ProjectPrototype/ForkliftOperatingSimulator/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/FinalYearProject/ForkliftOperatingSimulator/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/ProjectPrototype/ForkliftOperatingSimulator/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/FinalYearProject/ForkliftOperatingSimulator/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/ProjectPrototype/ForkliftOperatingSimulator/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>C:/Users/simon/OneDrive/Desktop/FYP/FinalYearProject/ForkliftOperatingSimulator/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
