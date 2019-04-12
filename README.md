@@ -4,20 +4,36 @@ Author: Simon O'Leary
 
 Supervisor: DR. Bryan Duggan 
 
-I would like to create a forklift operating simulation using virtual controls in VR.
-According to the Occupational Safety and Health Organisation (OSHA), as of 2013 there are about 85 deaths per year in forklift related accidents.
-The OSHA estimates around 70% of these could be avoided with proper safety training and procedures.
-While it is an incredibly small percentage of people working in this industry it is still unacceptable that there are this many avoidable, fatal accidents. 
-To operate a forklift, you need to have completed a training course which includes a theory and practical part.
-The theoretical section is on a number of subjects including operating practices, daily inspections and hydraulic systems.
-You also need practical training in manoeuvrability, handling pallets and forklift controls. 
-While it won’t be a total replacement for the current system, I feel this virtual reality (VR) operating simulator could help reduce this. 
+This project aims to create a virtual reality simulation in which the user can practice operating a forklift. 
+An estimated 70% of forklift-related accidents could be avoided with proper training. 
+The purpose of this simulation is to help workers gain more experience which will reduce the number of accidents of this kind. 
+Virtual reality is being used as a training tool in a number of areas and this seems like another good application of the technology. 
+This simulation is implemented using C# and Unity, and uses the SteamVR software development kit, 
+meaning it is compatible with both the Oculus Rift and the HTC Vive. 
+The project uses virtual controls and incorporates AI to give the user a greater sense of immersion.
+
+Link to Video Demonstration: 
 
 Controls:
 
-Right-hand trigger to accelerate, 
-Left-hand trigger to decelerate, 
-Right and Left-hand grip buttons to grab objects in the scene.
+Right-hand grip to accelerate, 
+
+Left-hand grip to brake
+
+Right and Left-hand triggers to grab objects in the scene.
+
+What objects do:
+
+Left-hand lever: Forward / Reverse transmission
+
+Right-hand levers: (left to right)
+
+Raise / Lower Mast & Fork
+
+Move Fork Left / Right
+
+Tilt Mast Forward / Back
+
 
 Unity version: 2018.3.6f1
 
