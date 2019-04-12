@@ -12,7 +12,7 @@ This simulation is implemented using C# and Unity, and uses the SteamVR software
 meaning it is compatible with both the Oculus Rift and the HTC Vive. 
 The project uses virtual controls and incorporates AI to give the user a greater sense of immersion.
 
-Link to Video Demonstrations: https://www.youtube.com/channel/UCDAkgWeNErw8dl9gJAMTEZA/videos?view_as=subscriber
+Link to Video Demonstrations: https://www.youtube.com/playlist?list=PL2cNIwARx8c7Nn6zIwatoIYW34DxGHcpl
 
 Controls:
 
