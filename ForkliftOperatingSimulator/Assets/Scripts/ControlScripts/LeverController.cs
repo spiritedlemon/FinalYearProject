@@ -69,34 +69,33 @@ public class LeverController : MonoBehaviour
 
     float CalculateRawAngle()
     {
-        RelativePos = WheelBase.transform.InverseTransformPoint(Hand.transform.position); // GETTING RELATIVE POSITION BETWEEN STEERING WHEEL BASE AND HAND
+        RelativePos = WheelBase.transform.InverseTransformPoint(Hand.transform.position); // Relative Position betwen hand and lever
 
-        return Mathf.Atan2(RelativePos.z, RelativePos.y) * Mathf.Rad2Deg; // GETTING CIRCULAR DATA FROM X & Y RELATIVES  VECTORS
+        return Mathf.Atan2(RelativePos.z, RelativePos.y) * Mathf.Rad2Deg; // Circular Data from X & Y vectors
     }
 
 
     void FixedUpdate()
     {
 
-        LeverControlOutput.leverAngleOutput = outputAngle;
+        LeverControlOutput.leverAngleOutput = outputAngle; //first action every frame is to output angle to Output script
         float angle;
         if (HandSticked)
         {
-            angle = CalculateRawAngle() + angleStickyOffset; // When hands are holding the wheel hand dictates how the wheel moves
-            // angleSticky Offset is calculated on wheel grab - makes wheel not to rotate instantly to the users hand
+            angle = CalculateRawAngle() + angleStickyOffset; // When hands are holding the lever, their hand dictates how the wheel moves
+            // angleSticky Offset is calculated when the lever is grabbed, this makes it not rotate to the user's hand
         }
         else
         {
-            // when wheel is released we apply a little of inertia
-            angle = outputAngle + wheelLastSpeed; //last wheel speed is updated when wheel is ungrabbed and then gradually returns to zero
+            // when lever is released a small amount of inertia is applied to make it feel more real
+            angle = outputAngle + wheelLastSpeed; //last rotation speed is updated when lever is 'ungrabbed' and then gradually returns to zero
             wheelLastSpeed *= INERTIA;
         }
-        lastValues.RemoveAt(0); // REMOVING FIRST ITEM FROM ARRAY
-        lastValues.Add(angle); // ADD LAST ITEM TO ARRAY
+        lastValues.RemoveAt(0); // Remove first item (Cycling through values)
+        lastValues.Add(angle); // Add last item to array
 
-        outputAngle = hookedAngles(angle);// SETTING OUTPUT THROUGH FUNCTION
+        outputAngle = hookedAngles(angle);// Set output with function
        
-        //transform.localEulerAngles = new Vector3(outputAngle + 90, -90, -90);
         transform.localEulerAngles = new Vector3(outputAngle, 0, 0);
 
         float haptic_speed_coeff = Mathf.Abs(lastValues[4] - lastValues[3]) + 1;

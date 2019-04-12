@@ -115,7 +115,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 498}
   m_MaxSize: {x: 18008, y: 14048}
   vertical: 0
-  controlID: 159
+  controlID: 114
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_MinSize: {x: 234, y: 498}
   m_MaxSize: {x: 10004, y: 14048}
   vertical: 1
-  controlID: 88
+  controlID: 115
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -374,7 +374,7 @@ MonoBehaviour:
   m_defaultScale: 1
   m_TargetTexture: {fileID: 0}
   m_CurrentColorSpace: 1
-  m_LastWindowPixelSize: {x: 1278.75, y: 341.25}
+  m_LastWindowPixelSize: {x: 1023, y: 273}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000100000100
@@ -410,9 +410,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -13.226484, y: 1.958667, z: 37.55792}
+    m_Target: {x: -14.091438, y: 1.8956193, z: 38.639412}
     speed: 2
-    m_Value: {x: -13.226484, y: 1.958667, z: 37.55792}
+    m_Value: {x: -14.091438, y: 1.8956193, z: 38.639412}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -440,13 +440,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.102270536, y: 0.47884938, z: -0.056282923, w: 0.8701013}
+    m_Target: {x: 0.11144084, y: 0.39029467, z: -0.04765588, w: 0.91267735}
     speed: 2
-    m_Value: {x: 0.10227054, y: 0.4788494, z: -0.056282926, w: 0.87010133}
+    m_Value: {x: 0.11144084, y: 0.39029467, z: -0.04765588, w: 0.91267735}
   m_Size:
-    m_Target: 7.2092853
+    m_Target: 18.009285
     speed: 2
-    m_Value: 7.2092853
+    m_Value: 18.009285
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -513,23 +513,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: e0e4feff
-      m_LastClickedID: -72480
-      m_ExpandedIDs: 96bafeffb8bafeff88c3feffb8c3feffe0e4feff6004ffff3c0efffff419ffff121affff6672ffff3e8affffc48affffb48bffffe293ffffa4d1ffffb2d1ffff12d6ffff32eeffff5aeeffffd2fbffffd4260000082700004e2700004a280000
+      m_SelectedIDs: f00d0000
+      m_LastClickedID: 0
+      m_ExpandedIDs: bcd5ffffc0d5ffffd2fbffffde280000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: ObjectVariant5 (7)
-        m_OriginalName: ObjectVariant5 (7)
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -64416
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 10}
       m_SearchString: 
@@ -577,20 +577,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Objects
+    - Assets/Scripts/ControlScripts
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Objects
+  - Assets/Scripts/ControlScripts
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\simon\OneDrive\Desktop\FYP\FinalYearProject\ForkliftOperatingSimulator
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 54150000
-    m_LastClickedID: 5460
-    m_ExpandedIDs: 00000000f8110000fc12000054150000b0150000f21500006c1b0000aa1c0000421f00008c220000f82200002449000026490000284900002a4900002c4900002e4900003049000032490000344900003649000000ca9a3b
+    m_SelectedIDs: 8e1f0000
+    m_LastClickedID: 8078
+    m_ExpandedIDs: 00000000061200000a1300006a150000c6150000081600003a1a0000861b0000c41c00005e1f0000aa2200001623000020520000225200002452000026520000285200002a5200002c5200002e520000305200003252000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -618,7 +618,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000f8110000fc12000054150000b0150000f21500006c1b0000aa1c0000421f00008c220000f82200002449000026490000284900002a4900002c4900002e49000030490000324900003449000036490000
+    m_ExpandedIDs: 00000000061200000a1300006a150000c615000008160000861b0000c41c00005e1f0000aa2200001623000020520000225200002452000026520000285200002a5200002c5200002e5200003052000032520000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -649,18 +649,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: c6230000d0310000de320000de0b0000d8310000240a0000c4380000b40d00000c310000ea320000d63200000e860000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: SteeringWheelController
+      m_OriginalName: SteeringWheelController
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 2218
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 11}
     m_CreateAssetUtility:
@@ -685,7 +685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c262c1329a02fa49b5cb4c297106f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MinSize: {x: 140, y: 28}
+  m_MinSize: {x: 146, y: 31}
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: ProBuilder

@@ -70,6 +70,7 @@ public class ControlsManager : MonoBehaviour {
             LeverStick = true;
             LeverControl = LeverObjectFR.GetComponent<LeverController>();
         }
+        //If hand is touching the object called Lever(Tilt) && the trigger is pulled in 
         else if (other.name == "Lever(Tilt)" && VRJoystickTracker.triggerPressed && !SteeringWheelStick) 
         {
             LeverObjectFR = other.gameObject;
@@ -135,7 +136,7 @@ public class ControlsManager : MonoBehaviour {
             }
         }
 
-        if (SteeringWheelStick) // STEERING WHEEL CONTROLLER
+        if (SteeringWheelStick) 
         {
             if (!WheelController.Hand)
             {
